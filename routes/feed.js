@@ -26,5 +26,14 @@ router.get("/", async (req, res) => {
 		res.render("error", data);
 	}
 });
+router.post("/", async (req, res) => {
+	try {
+		let test = req.body.pic;
+		res.render(feed,{LabelForm: "Upload Completed!"});
+	}
+	catch (e) {
+		console.log(e);
+	}
+});
 
 module.exports = router;
