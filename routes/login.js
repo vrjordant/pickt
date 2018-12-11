@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
 		} catch (e) {
 			throw(e);
 		}
-		res.redirect("/private");
+		res.redirect("/feed");
 	} else {
 		res.render("root", {title: "Login Screen", error: err});
 	}

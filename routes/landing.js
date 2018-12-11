@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     }
 
     if (auth) { // user is authenticated
-    	res.redirect("/private");
+    	res.redirect("/feed");
     } else {
     	res.render("root", {title: "Login Screen"});
     }
