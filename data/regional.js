@@ -17,7 +17,7 @@ const exportedMethods = {
       //Create ID?
     if (typeof topic !== "string") throw "No topic provided";
     if (typeof pid !== "string") throw "No pid provided";
-    if (typeof pid !== "string") throw "No userId provided";
+    if (typeof userId !== "string") throw "No userId provided";
 
 
     const regionalCollection = await regional();
