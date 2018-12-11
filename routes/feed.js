@@ -8,12 +8,12 @@ router.get("/", async (req, res) => {
 	try {
 		user = await users.getUserBySession(sid);
 	} catch (e) {
-		throw (e);
+		console.log(e);
 	}
 	
-	(user == null ? auth=true : auth=false)
+	(user == null ? auth=false : auth=true)
 
-	if (auth == false) {
+	if (auth == true) {
 		let data = {
 			title: "feed"
 		}
