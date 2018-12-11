@@ -21,6 +21,13 @@ let exportedMethods = {
     if (!user) throw "This doesn't work/User not found";
     return user;
   },
+  async checkUserExists(un) {
+    const userCollection = await users();
+    const user = await userCollection.findOne({'profile.username': un});
+    console.log(user)
+    if (!user) return false;
+    return true;
+  },
   async validate(un, pw) {
 
 		const user = await this.getUserByUn(un);
@@ -46,10 +53,25 @@ let exportedMethods = {
 		}
 		return true;
   },
+  async deleteSession(sid) {
+		try {
+      let user = await this.getUserBySession(sid);
+      let sessions = user.sessionIds;
+
+      let index = sessions.indexOf(sid);
+      if (index > -1){
+        sessions.splice(index, 1);
+      }
+      user.sessionIds = sessions
+      this.updateUser(user._id,user);
+		} catch (e) {
+			throw("No user with that username");
+		}
+		return true;
+  },
   async getUserBySession(sid) {
     const userCollection = await users();
     const jordan = await this.getUserByUn("vrjordant");
-    console.log(sid);
     const user = await userCollection.findOne({sessionIds: { $all: [sid]}});
 
     if (!user) throw "User not found";
