@@ -46,9 +46,8 @@ router.post("/", upload.single('pic'), async (req, res) => {
 	try {
 		console.log(req.file);
 		let base64 = base64_encode(req.file.path);
-		let picId = await gallery.addPost(base64,'12-11-2018',101);
-		// console.log(picId);
-		res.render("feed",{formLabel: "Upload Completed!"});
+        let pic = await gallery.addPost(base64,'12-11-2018',101);
+		res.render("feed",{formLabel: "Upload Completed!", base64_data: pic.data});
 	}
 	catch (e) {
 		console.log(e);
