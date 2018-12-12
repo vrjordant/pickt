@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const users = require("../data/users");
 const gallery = require("../data/gallery");
+const local = require("../data/local");
+
 const multer = require('multer');
 const upload = multer({dest:'./uploads'});
 const fs = require("fs");
@@ -19,12 +21,19 @@ router.get("/", async (req, res) => {
 	}
 	
 	(user == null ? auth=false : auth=true)
-
 	if (auth == true) {
+        let localPosts = await local.getPostsByLocation("Union County")
+        let local_post = []
+        for (let i = 0; i < localPosts.length; i++){
+            let post = await gallery.getPostById(localPosts[i]._id);
+            local_post.push(post)
+        }
 		let data = {
 			title: "FEED",
-			formLabel: `Upload a Picture to submit! Topic: ${topic}`
-		}
+            formLabel: `Upload a Picture to submit! Topic: ${topic}`,
+            localPosts: local_post
+        }
+        
 		res.render("feed", data);
 	} else {
 		let data = {
@@ -46,8 +55,10 @@ router.post("/", upload.single('pic'), async (req, res) => {
 	try {
 		console.log(req.file);
 		let base64 = base64_encode(req.file.path);
-        let pic = await gallery.addPost(base64,'12-11-2018',101);
-		res.render("feed",{formLabel: "Upload Completed!", base64_data: pic.data});
+        let pic = await gallery.addPost(base64,'12-11-2018',"fc314b22-9144-4359-9e78-a2d97108f72b");
+        await local.addLocalPost("dogs", pic._id, "fc314b22-9144-4359-9e78-a2d97108f72b")
+
+		res.render("feed",{formLabel: "Upload Completed!"});
 		fs.unlink(req.file.path, (err) => {
 			if (err) throw err;
 			// console.log('path/file.txt was deleted');

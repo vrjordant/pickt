@@ -10,7 +10,11 @@
     </div>
 	<div>
     <p>Taken from wikpedia</p>
-    <img src="data:image/png;base64, {{base64_data}}" alt="Picc" />
+	{{#each localPosts}}
+		<article class = "post">
+			<img src="data:image/png;base64, {{data}}" alt="Picc" />
+		</article>
+	{{/each}}
 </div> 
 </section>
 

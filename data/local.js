@@ -5,7 +5,12 @@ const gallery = require("./gallery");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
-
+  async getPostsByLocation(location){
+    const localCollection = await local();
+    var posts = await localCollection.find({location: location}).toArray();
+    console.log(posts[0])
+    return posts;
+  },
   async getLocalById(id) {
     const localCollection = await local();
     const localPost = await localCollection.findOne({ _id: id });
@@ -23,9 +28,8 @@ const exportedMethods = {
     const localCollection = await local();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getGalleryById(pid);
     const newLocal = {
-    _id: uuid.v4(),
+    _id: pid,
     creator : {
         name : userThatPosted.name,
         Username : userThatPosted.Username,
@@ -34,12 +38,11 @@ const exportedMethods = {
     votes : 0,
     topic : topic,
     location : userThatPosted.profile.local,
-    pid : pid
     };
 
     const newInsertInformation = await localCollection.insertOne(newLocal);
     const newId = newInsertInformation.insertedId;
-    return await this.getPostById(newId);
+    return await this.getLocalById(newId);
   },
   async removePostLocal(id) {
     const localCollection = await local();
