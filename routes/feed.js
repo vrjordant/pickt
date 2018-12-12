@@ -44,13 +44,10 @@ function base64_encode(file) {
 router.post("/", upload.single('pic'), async (req, res) => {
 	// assuming <input type="file" name="upload">
 	try {
-		console.log("HAPPENING");
 		console.log(req.file);
 		let base64 = base64_encode(req.file.path);
-		console.log("problem here?");
 		let picId = await gallery.addPost(base64,'12-11-2018',101);
-		console.log("Not reaching here");
-		console.log(picId);
+		// console.log(picId);
 		res.render("feed",{formLabel: "Upload Completed!"});
 	}
 	catch (e) {

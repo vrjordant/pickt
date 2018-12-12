@@ -9,11 +9,8 @@ const exportedMethods = {
     return await postCollection.find({}).toArray();
   },
   async getPostById(pid) {
-    console.log("1");
     const galleryCollection = await gallery();
-    console.log("2");
     const galleryd = await galleryCollection.findOne({ _id: pid });
-    console.log("3");
 
     if (!galleryd) throw "Post not found";
     return galleryd;
