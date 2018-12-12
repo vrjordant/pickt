@@ -3,6 +3,7 @@ const router = express.Router();
 const users = require("../data/users");
 
 router.get("/", async (req, res) => {
+	let topic = "Dogs";
 	const sid = req.cookies.AuthCookie;
 	let user = null;
 	try {
@@ -15,7 +16,8 @@ router.get("/", async (req, res) => {
 
 	if (auth == true) {
 		let data = {
-			title: "feed"
+			title: "FEED",
+			formLabel: `Upload a Picture to submit! Topic: ${topic}`
 		}
 		res.render("feed", data);
 	} else {
@@ -28,8 +30,9 @@ router.get("/", async (req, res) => {
 });
 router.post("/", async (req, res) => {
 	try {
+		console.log("HAPPENING");
 		let test = req.body.pic;
-		res.render(feed,{LabelForm: "Upload Completed!"});
+		res.render("feed",{formLabel: "Upload Completed!"});
 	}
 	catch (e) {
 		console.log(e);
