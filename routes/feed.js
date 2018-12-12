@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const users = require("../data/users");
+const fileupload = require("express-fileupload");
+// const image2base64 = require('image-to-base64');
 
 router.get("/", async (req, res) => {
 	let topic = "Dogs";
@@ -28,15 +30,41 @@ router.get("/", async (req, res) => {
 		res.render("error", data);
 	}
 });
-router.post("/", async (req, res) => {
-	try {
-		console.log("HAPPENING");
-		let test = req.body.pic;
-		res.render("feed",{formLabel: "Upload Completed!"});
-	}
-	catch (e) {
-		console.log(e);
-	}
+router.post("/", function(req, res)
+{
+    var file;
+    if(!req.files) {
+        console.log("File not found");
+        return;
+    }
+
+    file = req.files.FormFieldName;  // here is the field name of the form
+
+    // file.mv("file.txt", function(err){
+	// 	// log your error
+	// });
+
+    console.log(file);
 });
+// router.post("/", async (req, res) => {
+// 	// assuming <input type="file" name="upload">
+// 	try {
+// 		console.log("HAPPENING");
+// 		var path = req.files.pic.path;
+// 		var name = req.files.pic.name;
+// 		console.log(`${path} ${name}`);  
+// 		// let test = req.body.pic;
+// 	// 	image2base64(test) // you can also to use url
+//     // 	.then(
+//     //     (response) => {
+//     //         console.log(response); //cGF0aC90by9maWxlLmpwZw==
+//     //     }
+//     // )
+// 		res.render("feed",{formLabel: "Upload Completed!"});
+// 	}
+// 	catch (e) {
+// 		console.log(e);
+// 	}
+// });
 
 module.exports = router;
