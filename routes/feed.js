@@ -7,8 +7,7 @@ const local = require("../data/local");
 const multer = require('multer');
 const upload = multer({dest:'./uploads'});
 const fs = require("fs");
-// const fileupload = require("express-fileupload");
-// const image2base64 = require('image-to-base64');
+const date = require('date-and-time');
 
 router.get("/", async (req, res) => {
 	let topic = "Dogs";
@@ -53,16 +52,22 @@ function base64_encode(file) {
 router.post("/", upload.single('pic'), async (req, res) => {
 	// assuming <input type="file" name="upload">
 	try {
-		console.log(req.file);
-		let base64 = base64_encode(req.file.path);
-        let pic = await gallery.addPost(base64,'12-11-2018',"fc314b22-9144-4359-9e78-a2d97108f72b");
-        await local.addLocalPost("dogs", pic._id, "fc314b22-9144-4359-9e78-a2d97108f72b")
+        if(req.file){
+            let base64 = base64_encode(req.file.path);
+            let now = new Date();
+            let pic = await gallery.addPost(base64, date.format(now, 'YYYY/MM/DD HH:mm:ss'),"fc314b22-9144-4359-9e78-a2d97108f72b");
+            await local.addLocalPost("dogs", pic._id, "fc314b22-9144-4359-9e78-a2d97108f72b")
 
-		res.render("feed",{formLabel: "Upload Completed!"});
-		fs.unlink(req.file.path, (err) => {
-			if (err) throw err;
-			// console.log('path/file.txt was deleted');
-		});
+            res.redirect(307,"/feed", {formLabel: "Upload Completed!"});
+            fs.unlink(req.file.path, (err) => {
+                if (err) throw err;
+                // console.log('path/file.txt was deleted');
+            });
+        }
+        else{
+            //no file submitted
+            res.render("error", {issue: "need to add a file"});
+        }
 	}
 	catch (e) {
 		console.log(e);

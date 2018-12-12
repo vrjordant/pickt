@@ -15,10 +15,10 @@ router.post("/", async (req, res) => {
     const region = req.body.region;
 
     if (pw!== pw2){
-        res.render("root", {title: "Login Screen", error: "Yo passwords don't match"});  
+        res.render("root", {title: "", error: "Yo passwords don't match"});  
     }else{
         if(await users.checkUserExists(un)) {
-            res.render("root", {title: "Login Screen", error: "User Already exists"});
+            res.render("root", {title: "", error: "User already exists"});
         }
         else{
             const hash = await bcrypt.hash(pw, saltRounds);

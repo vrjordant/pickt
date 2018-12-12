@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
     if (auth) { // user is authenticated
     	res.redirect("/feed");
     } else {
-    	res.render("root", {title: "Login Screen"});
+    	res.render("root", {title: ""});
     }
 });
 
