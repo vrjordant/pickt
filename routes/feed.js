@@ -48,6 +48,10 @@ router.post("/", upload.single('pic'), async (req, res) => {
 		let base64 = base64_encode(req.file.path);
 		let picId = await gallery.addPost(base64,'12-11-2018',101);
 		// console.log(picId);
+		fs.unlink(req.file.path, (err) => {
+			if (err) throw err;
+			// console.log('path/file.txt was deleted');
+		});
 		res.render("feed",{formLabel: "Upload Completed!"});
 	}
 	catch (e) {
