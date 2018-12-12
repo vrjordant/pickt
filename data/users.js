@@ -18,7 +18,7 @@ let exportedMethods = {
     const userCollection = await users();
     const user = await userCollection.findOne({'profile.username': un});
 
-    if (!user) throw "This doesn't work/User not found";
+    if (!user) throw "That didn't work/User not found";
     return user;
   },
   async checkUserExists(un) {
