@@ -6,25 +6,24 @@ const uuid = require("node-uuid");
 
 const exportedMethods = {
 
-  async getLocalById(id) {
-    const localCollection = await local();
-    const localPost = await localCollection.findOne({ _id: id });
+  async getStateById(id) {
+    const stateCollection = await state();
+    const statePost = await stateCollection.findOne({ _id: id });
 
-    if (!localPost) throw "Post not found";
-    return localPost;
+    if (!statePost) throw "Post not found";
+    return statePost;
   },
-  async addLocalPost( topic, pid, userId) {
+  async addStatePost( topic, pid, userId) {
       //Create ID?
     if (typeof topic !== "string") throw "No topic provided";
     if (typeof pid !== "string") throw "No pid provided";
     if (typeof userId !== "string") throw "No userId provided";
 
-
-    const localCollection = await local();
+    const stateCollection = await state();
 
     const userThatPosted = await users.getUserById(userId);
     const galleryThatPosted = await gallery.getGalleryById(pid);
-    const newLocal = {
+    const newState = {
     _id: uuid.v4(),
     creator : {
         name : userThatPosted.name,
@@ -33,23 +32,23 @@ const exportedMethods = {
     },
     votes : 0,
     topic : topic,
-    location : userThatPosted.profile.local,
+    location : userThatPosted.profile.state,
     pid : pid
     };
 
-    const newInsertInformation = await localCollection.insertOne(newLocal);
+    const newInsertInformation = await stateCollection.insertOne(newState);
     const newId = newInsertInformation.insertedId;
     return await this.getPostById(newId);
   },
-  async removePostLocal(id) {
-    const localCollection = await local();
-    const deletionInfo = await localCollection.removeOne({ _id: id });
+  async removePostState(id) {
+    const stateCollection = await state();
+    const deletionInfo = await stateCollection.removeOne({ _id: id });
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete post with id of ${id}`;
     }
   },
-  async upvotePostLocal(id) {
-    area = "local";
+  async upvotePostState(id) {
+    area = "state";
     const updatedVotes = await gallery.upvotePost(id, area);
     return updatedVotes;
   }

@@ -1,30 +1,30 @@
 const mongoCollections = require("../config/mongoCollections");
-const local = mongoCollections.local;
+const national = mongoCollections.national;
 const users = require("./users");
 const gallery = require("./gallery");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
 
-  async getLocalById(id) {
-    const localCollection = await local();
-    const localPost = await localCollection.findOne({ _id: id });
+  async getNationalById(id) {
+    const nationalCollection = await national();
+    const nationalPost = await nationalCollection.findOne({ _id: id });
 
-    if (!localPost) throw "Post not found";
-    return localPost;
+    if (!nationalPost) throw "National post not found";
+    return nationalPost;
   },
-  async addLocalPost( topic, pid, userId) {
+  async addNationalPost( topic, pid, userId) {
       //Create ID?
     if (typeof topic !== "string") throw "No topic provided";
     if (typeof pid !== "string") throw "No pid provided";
     if (typeof userId !== "string") throw "No userId provided";
 
 
-    const localCollection = await local();
+    const nationalCollection = await national();
 
     const userThatPosted = await users.getUserById(userId);
     const galleryThatPosted = await gallery.getGalleryById(pid);
-    const newLocal = {
+    const newNationalPost = {
     _id: uuid.v4(),
     creator : {
         name : userThatPosted.name,
@@ -33,23 +33,23 @@ const exportedMethods = {
     },
     votes : 0,
     topic : topic,
-    location : userThatPosted.profile.local,
+    location : userThatPosted.profile.national,
     pid : pid
     };
 
-    const newInsertInformation = await localCollection.insertOne(newLocal);
+    const newInsertInformation = await natoinalCollection.insertOne(newNationalPost);
     const newId = newInsertInformation.insertedId;
     return await this.getPostById(newId);
   },
-  async removePostLocal(id) {
-    const localCollection = await local();
-    const deletionInfo = await localCollection.removeOne({ _id: id });
+  async removePostNational(id) {
+    const nationalCollection = await national();
+    const deletionInfo = await nationalCollection.removeOne({ _id: id });
     if (deletionInfo.deletedCount === 0) {
       throw `Could not delete post with id of ${id}`;
     }
   },
-  async upvotePostLocal(id) {
-    area = "local";
+  async upvotePost(id) {
+    area = "national";
     const updatedVotes = await gallery.upvotePost(id, area);
     return updatedVotes;
   }
