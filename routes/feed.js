@@ -21,7 +21,10 @@ router.get("/", async (req, res) => {
 	
 	(user == null ? auth=false : auth=true)
 	if (auth == true) {
-        let localPosts = await local.getPostsByLocation("Union County")
+        const sid = req.cookies.AuthCookie;
+        let user = await users.getUserBySession(sid);
+
+        let localPosts = await local.getPostsByLocation(user.profile.local)
         let local_post = []
         for (let i = 0; i < localPosts.length; i++){
             let post = await gallery.getPostById(localPosts[i]._id);
@@ -55,10 +58,13 @@ router.post("/", upload.single('pic'), async (req, res) => {
         if(req.file){
             let base64 = base64_encode(req.file.path);
             let now = new Date();
-            let pic = await gallery.addPost(base64, date.format(now, 'YYYY/MM/DD HH:mm:ss'),"fc314b22-9144-4359-9e78-a2d97108f72b");
-            await local.addLocalPost("dogs", pic._id, "fc314b22-9144-4359-9e78-a2d97108f72b")
 
-            res.redirect(307,"/feed", {formLabel: "Upload Completed!"});
+            const sid = req.cookies.AuthCookie;
+            let user = await users.getUserBySession(sid);
+            let pic = await gallery.addPost(base64, date.format(now, 'YYYY/MM/DD HH:mm:ss'),user._id);
+            await local.addLocalPost("dogs", pic._id, user._id)
+
+            res.redirect(307,"/feed");
             fs.unlink(req.file.path, (err) => {
                 if (err) throw err;
                 // console.log('path/file.txt was deleted');
