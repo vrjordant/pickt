@@ -25,7 +25,7 @@ router.post("/", async (req, res) => {
 		}
 		res.redirect("/feed");
 	} else {
-		res.render("root", {title: "Login Screen", error: err});
+		res.render("root", {title: "", error: err});
 	}
 });
 
