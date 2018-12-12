@@ -9,11 +9,14 @@ const exportedMethods = {
     return await postCollection.find({}).toArray();
   },
   async getPostById(pid) {
+    console.log("1");
     const galleryCollection = await gallery();
-    const gallery = await galleryCollection.findOne({ _id: pid });
+    console.log("2");
+    const galleryd = await galleryCollection.findOne({ _id: pid });
+    console.log("3");
 
-    if (!gallery) throw "Post not found";
-    return gallery;
+    if (!galleryd) throw "Post not found";
+    return galleryd;
   },
   async addPost(data, date, cid) {
     if (!data) throw "No data provided!";
@@ -37,6 +40,7 @@ const exportedMethods = {
 
     const newInsertInformation = await galleryCollection.insertOne(newPost);
     const newId = newInsertInformation.insertedId;
+    console.log("we have the new id");
     return await this.getPostById(newId);
   },
   async removePost(id) {
