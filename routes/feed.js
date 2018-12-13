@@ -201,7 +201,7 @@ router.post("/upvote", async (req, res) => {
 	console.log(req.body.picID);
 	let upvoteresult = await gallery.upvotePost(req.body.picID, "local");
 	//console.log(upvoteresult);
-	res.redirect(303,"/feed/local");
+	res.sendStatus(204);
 });
 
 module.exports = router;
