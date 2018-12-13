@@ -22,8 +22,9 @@ router.get("/", async (req, res) => {
 	(user == null ? auth=false : auth=true)
 	if (auth == true) {
         const sid = req.cookies.AuthCookie;
+        
         let user = await users.getUserBySession(sid);
-
+        
         let localPosts = await local.getPostsByLocation(user.profile.local)
         let local_post = []
         for (let i = 0; i < localPosts.length; i++){
@@ -64,7 +65,8 @@ router.post("/", upload.single('pic'), async (req, res) => {
             let pic = await gallery.addPost(base64, date.format(now, 'YYYY/MM/DD HH:mm:ss'),user._id);
             await local.addLocalPost("dogs", pic._id, user._id)
 
-            res.redirect(307,"/feed");
+
+            res.redirect(303,"/feed");
             fs.unlink(req.file.path, (err) => {
                 if (err) throw err;
                 // console.log('path/file.txt was deleted');
