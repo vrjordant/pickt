@@ -27,9 +27,9 @@ const exportedMethods = {
     const nationalCollection = await national();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getGalleryById(pid);
+    const galleryThatPosted = await gallery.getPostById(pid);
     const newNationalPost = {
-    _id: uuid.v4(),
+    _id: pid,
     creator : {
         name : userThatPosted.profile.name,
         Username : userThatPosted.profile.username,
@@ -38,12 +38,11 @@ const exportedMethods = {
     votes : 0,
     topic : topic,
     location : userThatPosted.profile.national,
-    pid : pid
     };
 
     const newInsertInformation = await natoinalCollection.insertOne(newNationalPost);
     const newId = newInsertInformation.insertedId;
-    return await this.getPostById(newId);
+    return await this.getNationalById(newId);
   },
   async removePostNational(id) {
     const nationalCollection = await national();
