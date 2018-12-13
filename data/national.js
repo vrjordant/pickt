@@ -5,6 +5,11 @@ const gallery = require("./gallery");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
+  async getAllPosts() {
+    const nationalCollection = await national();
+    const nationalPosts = await nationalCollection.find({}).toArray();
+    return nationalPosts;
+  },
   async getNationalById(id) {
     const nationalCollection = await national();
     const nationalPost = await nationalCollection.findOne({ _id: id });
