@@ -16,10 +16,10 @@ const exportedMethods = {
     return galleryd;
   },
   async getPostsByUser(cid) {
-    if (!id) throw "No tag provided";
+    if (!cid) throw "No tag provided";
 
-    const postCollection = await posts();
-    return await postCollection.find({ _cid: cid }).toArray();
+    const galleryCollection = await gallery();
+    return await galleryCollection.find({ _cid: cid }).toArray();
   },
   async addPost(data, date, cid) {
     if (!data) throw "No data provided!";
