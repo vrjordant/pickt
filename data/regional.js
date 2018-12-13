@@ -5,7 +5,12 @@ const gallery = require("./gallery");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
-
+  async getPostsByLocation(location){
+    const regionalCollection = await regional();
+    var posts = await regionalCollection.find({location: location}).toArray();
+    console.log(posts[0])
+    return posts;
+  },
   async getRegionalById(id) {
     const regionalCollection = await regional();
     const regionalPost = await regionalCollection.findOne({ _id: id });
