@@ -1,7 +1,7 @@
 <section> 
 	<h6>PIKT</h6>
 	<p>{{location}}</p>
-	<form id = "formID" action="/feed" enctype = "multipart/form-data" method="POST">
+	<form id = "formID" action="/feed/" enctype = "multipart/form-data" method="POST">
 		<label>{{formLabel}} </label>
 		<input id = "picture" type="file" name="pic" accept="image/*">
   		<input type="submit">
@@ -15,9 +15,14 @@
 	{{#each posts}}
 		<article class = "post">
 			<img src="data:image/png;base64, {{data}}" alt="Picc" />
+			<form id = "upvoteID" action="/feed/upvote" method="POST">
+				<input type="hidden" id="picID" name="picID" value="{{_id}}">
+				<input type="submit" value="Upvote">
+			</form>
 		</article>
 	{{/each}}
 </div> 
 </section>
 
 
+<input type="submit" onclick="upvotePost({id}, "local")" value="Upvote">

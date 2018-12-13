@@ -47,33 +47,31 @@ const exportedMethods = {
       throw `Could not delete post with id of ${id}`;
     }
   },
+
   async upvotePost(id,area) {
     if (!area) throw "No area provided!";
 
-    const postCollection = await gallery();
-    const post = await postCollection.getPostById(id);
+    let updatedPostData = {};
+    let post = await this.getPostById(id);
 
-    const updatedPostData = {};
     if (area == "local") {
       updatedPostData.vote_local = post.vote_local+1;
+      console.log("upvotePost on local");
     }
-    if (area == "state") {
+    else if (area == "state") {
       updatedPostData.vote_state = post.vote_state+1;
     }
-    if (area == "regional") {
+    else if (area == "regional") {
       updatedPostData.vote_regional = post.vote_regional+1;
     }
-    if (area == "national") {
+    else if (area == "national") {
       updatedPostData.vote_national = post.vote_national+1;
     }
-
-    let updateCommand = {
-      $set: updatedPostData
-    };
-    const query = {
-      _id: id
-    };
-    await postCollection.updateOne(query, updateCommand);
+    else {
+      throw "Valid area not provided to upvotePost()";
+    }
+    const postCollection = await gallery();
+    await postCollection.updateOne( {_id: id}, {$set: updatedPostData});
 
     return await this.getPostById(id);
   }
