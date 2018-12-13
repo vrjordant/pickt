@@ -1,4 +1,6 @@
-<section> <h6>PIKT</h6>
+<section> 
+	<h6>PIKT</h6>
+	<p>{{location}}</p>
 	<form id = "formID" action="/feed" enctype = "multipart/form-data" method="POST">
 		<label>{{formLabel}} </label>
 		<input id = "picture" type="file" name="pic" accept="image/*">
@@ -10,7 +12,7 @@
     </div>
 	<div>
     <p>Taken from wikpedia</p>
-	{{#each localPosts}}
+	{{#each posts}}
 		<article class = "post">
 			<img src="data:image/png;base64, {{data}}" alt="Picc" />
 		</article>

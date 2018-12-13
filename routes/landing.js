@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     }
 
     if (auth) { // user is authenticated
-    	res.redirect("/feed");
+    	res.redirect("/feed/local");
     } else {
     	res.render("root", {title: ""});
     }
