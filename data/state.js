@@ -26,8 +26,8 @@ const exportedMethods = {
     const newState = {
     _id: uuid.v4(),
     creator : {
-        name : userThatPosted.name,
-        Username : userThatPosted.Username,
+      name : userThatPosted.profile.name,
+      Username : userThatPosted.profile.username,
         _id : userThatPosted._id
     },
     votes : 0,
