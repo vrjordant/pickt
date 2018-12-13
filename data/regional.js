@@ -28,9 +28,9 @@ const exportedMethods = {
     const regionalCollection = await regional();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getGalleryById(pid);
+    const galleryThatPosted = await gallery.getPostById(pid);
     const newRegional = {
-    _id: uuid.v4(),
+    _id: pid,
     creator : {
       name : userThatPosted.profile.name,
       Username : userThatPosted.profile.username,
@@ -38,13 +38,12 @@ const exportedMethods = {
     },
     votes : 0,
     topic : topic,
-    location : userThatPosted.profile.regional,
-    pid : pid
+    location : userThatPosted.profile.regional
     };
 
     const newInsertInformation = await regionalCollection.insertOne(newRegional);
     const newId = newInsertInformation.insertedId;
-    return await this.getPostById(newId);
+    return await this.getRegionalById(newId);
   },
   async removePostRegional(id) {
     const regionalCollection = await regional();
