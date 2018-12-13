@@ -35,7 +35,8 @@ router.get("/local", async (req, res) => {
         }
 		let data = {
             title: "FEED",
-            location: "local: " + user.profile.local,
+			location: "local: " + user.profile.local,
+			username: user.profile.username,
             formLabel: `Upload a Picture to submit! Topic: ${topic}`,
             posts: local_post
         }
