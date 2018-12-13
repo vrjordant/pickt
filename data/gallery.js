@@ -15,6 +15,12 @@ const exportedMethods = {
     if (!galleryd) throw "Post not found";
     return galleryd;
   },
+  async getPostsByUser(cid) {
+    if (!cid) throw "No tag provided";
+
+    const galleryCollection = await gallery();
+    return await galleryCollection.find({ _cid: cid }).toArray();
+  },
   async addPost(data, date, cid) {
     if (!data) throw "No data provided!";
     if (!date) throw "No date provided!";
