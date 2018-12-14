@@ -23,7 +23,12 @@ router.post("/", async (req, res) => {
 		} catch (e) {
 			throw(e);
 		}
-		res.redirect("/feed");
+		if (un == "admin") {
+			res.redirect("/admin");
+		}
+		else {
+			res.redirect("/feed");
+		}
 	} else {
 		res.render("root", {title: "", error: err});
 	}

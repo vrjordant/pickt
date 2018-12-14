@@ -68,7 +68,7 @@ const main = async () => {
   pic = await gallery.addPost(base64, '12-09-2018 03:08:03',sean._id);
 
   await local.addLocalPost(pic._id, sean._id);
-  await moveUp.moveAllUp();
+  //await moveUp.moveAllUp();
 
   await db.serverConfig.close();
 

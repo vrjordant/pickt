@@ -1,0 +1,15 @@
+<div>
+	<a href = "/logout">Logout</a>
+	<h2>Admin Controls!</h2>
+	<ul>
+        <form id = "moveUpID" action="/admin/moveUp" method="POST">
+            <input type="hidden" id="moveUpID" name="moveUpID" value="Move Up!">
+            <input type="submit" value="Move Up">
+        </form>
+        <form id = "topicID" action="/admin/changeTopic" method="POST">
+            <label for="update_topic">New Topic </label>
+            <input type="text" name="update_topic" id="update_topic" value = "Enter a new Topic">
+            <button type="submit">Update Topic</button>
+        </form>
+	</ul>
+</div>
