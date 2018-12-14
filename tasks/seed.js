@@ -30,7 +30,7 @@ const main = async () => {
   let name5 = "Sean Hill";
 
   let pw = "1224";
-  const hash = await bcrypt.hash(pw, saltRounds);
+  let hash = await bcrypt.hash(pw, saltRounds);
 
   const phil = await users.addUser(un1, name1, hash, "Bergen County", "New Jersey", "Northeast");
   const david = await users.addUser(un2, name2, hash, "Garfield County", "Washington", "West");
