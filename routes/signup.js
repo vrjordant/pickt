@@ -14,11 +14,15 @@ router.post("/", async (req, res) => {
     const state = req.body.state;
     const region = req.body.region;
 
-    if (pw!== pw2){
-        res.render("root", {title: "", error: "Yo passwords don't match"});  
+    var letters = "/^[0-9a-zA-Z]+$/";
+    if( !(un.match(letters) && pw.match(letters) && pw2.match(letters) && name.match(letters))){
+        res.render("root", {title: "Pickt", error: "User must only enter alphanumeric characters into the sign up"});  
+    }
+    else if (pw!== pw2){
+        res.render("root", {title: "Pickt", error: "Yo passwords don't match"});  
     }else{
         if(await users.checkUserExists(un)) {
-            res.render("root", {title: "", error: "User already exists"});
+            res.render("root", {title: "Pickt", error: "User already exists"});
         }
         else{
             const hash = await bcrypt.hash(pw, saltRounds);
