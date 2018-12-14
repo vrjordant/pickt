@@ -1,3 +1,10 @@
+const regions = [
+    "Northeast",
+    "Southeast",
+    "Midwest",
+    "Southwest",
+    "West"
+]
 const states = [
     "New Jersey",
     "Washington"
@@ -32,6 +39,9 @@ const counties ={
     };
 
 module.exports = {
+    getRegions: function getRegions() {
+        return regions;
+    },
 	getCounties: function getCounties(){
 		return counties;
     },

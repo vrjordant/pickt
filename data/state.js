@@ -2,6 +2,8 @@ const mongoCollections = require("../config/mongoCollections");
 const state = mongoCollections.state;
 const users = require("./users");
 const gallery = require("./gallery");
+const locationData = require("./location");
+const regionFunctions = require("./regional");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
@@ -54,6 +56,13 @@ const exportedMethods = {
     area = "state";
     const updatedVotes = await gallery.upvotePost(id, area);
     return updatedVotes;
+  },
+  async moveUp() {
+    let regionsArray = locationData.getRegions();
+    let stateArray = locationData.getStates();
+    for (let i = 0; i < regionsArray.length; i++) {
+      
+    }
   }
 
 };
