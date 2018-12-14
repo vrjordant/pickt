@@ -8,7 +8,13 @@
 	<a href = "/feed/national">National</a>
 	<h6>PIKT</h6>
 	<p>You are logged in as {{username}}</p>
+
+	{{#if disabled}}
+	<p>You are out of votes for this round!</p>
+	{{/if}}
+
 	<p>{{location}}</p>
+
 	{{#if visible}}
 	<form id = "formID" action="/feed/" enctype = "multipart/form-data" method="POST">
 		<label>{{formLabel}} </label>
@@ -16,6 +22,7 @@
   		<input type="submit">
 	</form>
 	{{/if}}
+
 	<div class="form-group hidden" id="error-container">
         <div class="alert alert-danger text-goes-here">
         </div>
@@ -27,7 +34,9 @@
 			<img src="data:image/png;base64, {{data}}" alt="Picc" />
 			<form id = "upvoteID" action="/feed/upvote" method="POST">
 				<input type="hidden" id="picID" name="picID" value="{{_id}}">
+				{{#unless ../disabled}}
 				<input type="submit" value="Upvote">
+				{{/unless}}
 			</form>
 		</article>
 	{{/each}}
