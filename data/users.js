@@ -119,10 +119,10 @@ let exportedMethods = {
       },
       allUploads: [],
       sessionIds: [],
-      vote_local = 5,
-      vote_state = 5,
-      vote_regional = 5,
-      vote_national = 5
+      vote_local : 5,
+      vote_state : 5,
+      vote_regional : 5,
+      vote_national : 5
     };
 
     const newInsertInformation = await usersCollection.insertOne(newUser);

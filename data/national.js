@@ -5,7 +5,7 @@ const gallery = require("./gallery");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
-  async getAllPosts() {
+  async getAllNationalPosts() {
     const nationalCollection = await national();
     const nationalPosts = await nationalCollection.find({}).toArray();
     return nationalPosts;
@@ -55,6 +55,23 @@ const exportedMethods = {
     area = "national";
     const updatedVotes = await gallery.upvotePost(id, area);
     return updatedVotes;
+  },
+  async selectWinner(){
+    let nationalPosts = await this.getAllNationalPosts();
+    let max = -1;
+    let winnerPostsArray = [];
+    for(let x = 0; x < nationalPosts.length; x++){
+      let currPostVotes = nationalPosts[x].votes;
+      if(currPostVotes > max){
+        max = currPostVote;
+        winnerPostsArray = [];
+        winnerPostsArray.push(nationalPosts[i]._id);
+      }
+      if(currPostVotes = max){
+        winnerPostsArray.push(nationalPosts[i]._id);
+      }
+    }
+    return winnerPostsArray;
   }
 
 };
