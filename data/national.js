@@ -5,7 +5,7 @@ const gallery = require("./gallery");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
-  async getAllPosts() {
+  async getAllNationalPosts() {
     const nationalCollection = await national();
     const nationalPosts = await nationalCollection.find({}).toArray();
     return nationalPosts;
@@ -27,9 +27,9 @@ const exportedMethods = {
     const nationalCollection = await national();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getGalleryById(pid);
+    const galleryThatPosted = await gallery.getPostById(pid);
     const newNationalPost = {
-    _id: uuid.v4(),
+    _id: pid,
     creator : {
         name : userThatPosted.profile.name,
         Username : userThatPosted.profile.username,
@@ -38,12 +38,11 @@ const exportedMethods = {
     votes : 0,
     topic : topic,
     location : userThatPosted.profile.national,
-    pid : pid
     };
 
     const newInsertInformation = await natoinalCollection.insertOne(newNationalPost);
     const newId = newInsertInformation.insertedId;
-    return await this.getPostById(newId);
+    return await this.getNationalById(newId);
   },
   async removePostNational(id) {
     const nationalCollection = await national();
@@ -56,6 +55,23 @@ const exportedMethods = {
     area = "national";
     const updatedVotes = await gallery.upvotePost(id, area);
     return updatedVotes;
+  },
+  async selectWinner(){
+    let nationalPosts = await this.getAllNationalPosts();
+    let max = -1;
+    let winnerPostsArray = [];
+    for(let x = 0; x < nationalPosts.length; x++){
+      let currPostVotes = nationalPosts[x].votes;
+      if(currPostVotes > max){
+        max = currPostVote;
+        winnerPostsArray = [];
+        winnerPostsArray.push(nationalPosts[i]._id);
+      }
+      if(currPostVotes = max){
+        winnerPostsArray.push(nationalPosts[i]._id);
+      }
+    }
+    return winnerPostsArray;
   }
 
 };

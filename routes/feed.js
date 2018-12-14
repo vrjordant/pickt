@@ -35,7 +35,8 @@ router.get("/local", async (req, res) => {
         }
 		let data = {
             title: "FEED",
-            location: "local: " + user.profile.local,
+			location: "local: " + user.profile.local,
+			username: user.profile.username,
             formLabel: `Upload a Picture to submit! Topic: ${topic}`,
             posts: local_post
         }
@@ -193,6 +194,13 @@ router.post("/", upload.single('pic'), async (req, res) => {
 	catch (e) {
 		console.log(e);
 	}
+});
+
+router.post("/upvote", async (req, res) => {
+	console.log(req.body.picID);
+	let upvoteresult = await gallery.upvotePost(req.body.picID, "local");
+	//console.log(upvoteresult);
+	res.sendStatus(204);
 });
 
 module.exports = router;

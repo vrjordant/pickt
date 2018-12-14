@@ -1,6 +1,6 @@
 const landingRoute = require("./landing");
 const loginRoute = require("./login");
-const privateRoute = require("./private");
+const profileRoute = require("./profile");
 const logoutRoute = require("./logout");
 const feedRoute = require("./feed");
 const winnerRoute = require("./winner");
@@ -14,7 +14,7 @@ function constructorMethod(app) {
 	app.use("/winner", winnerRoute);
 	app.use("/feed", feedRoute);
 	app.use("/login", loginRoute);
-	app.use("/private", privateRoute);
+	app.use("/profile", profileRoute);
 	app.use("/logout", logoutRoute);
 	app.use("/signup", signupRoute);
 

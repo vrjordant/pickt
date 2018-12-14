@@ -1,7 +1,9 @@
 const mongoCollections = require("../config/mongoCollections");
-const local = mongoCollections.local;
+const state = mongoCollections.state;
 const users = require("./users");
 const gallery = require("./gallery");
+const locationData = require("./location");
+const regionFunctions = require("./regional");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
@@ -27,9 +29,8 @@ const exportedMethods = {
     const stateCollection = await state();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getGalleryById(pid);
     const newState = {
-    _id: uuid.v4(),
+    _id: pid,
     creator : {
       name : userThatPosted.profile.name,
       Username : userThatPosted.profile.username,
@@ -37,13 +38,12 @@ const exportedMethods = {
     },
     votes : 0,
     topic : topic,
-    location : userThatPosted.profile.state,
-    pid : pid
+    location : userThatPosted.profile.state
     };
 
     const newInsertInformation = await stateCollection.insertOne(newState);
     const newId = newInsertInformation.insertedId;
-    return await this.getPostById(newId);
+    return await this.getStateById(newId);
   },
   async removePostState(id) {
     const stateCollection = await state();
@@ -56,6 +56,38 @@ const exportedMethods = {
     area = "state";
     const updatedVotes = await gallery.upvotePost(id, area);
     return updatedVotes;
+  },
+  async moveUp() {
+    let regionList = locationData.getRegionList();
+    let regionsObject = locationData.getRegions();
+    for (let i = 0; i < regionList.length; i++) {
+      let state_list = regionsObject[regionList[i]];
+      let allStateWinners = [];
+      for (let j = 0; j < state_list.length; j++) {
+        let current_state = state_list[j];
+        let statePosts = await this.getPostsByLocation(current_state);
+        let max = -1;
+        let eachStateWinners = [];
+        for (let k = 0; k < statePosts.length; k++) {
+          let current_vote = statePosts[k].votes;
+          if (current_vote > max) {
+            max = current_vote;
+            eachStateWinners = [];
+            eachStateWinners.push(statePosts[k]._id);
+          }
+          else if (current_vote == max) {
+            eachStateWinners.push(statePosts[k]._id);
+          }
+        }
+        allStateWinners.push(eachStateWinners);
+      }
+      for (let i = 0; i < allStateWinners.length; i++) {
+        for (let j = 0; j < allStateWinners[i].length; j++) {
+          let statePost = await this.getLocalById(allStateWinners[i][j]);
+          await regionFunctions.addStatePost(statePost.topic,statePost._id,statePost.creator._id);
+        }
+      }
+    }
   }
 
 };
