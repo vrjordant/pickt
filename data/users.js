@@ -120,7 +120,8 @@ let exportedMethods = {
       vote_local : 5,
       vote_state : 5,
       vote_regional : 5,
-      vote_national : 5
+      vote_national : 5,
+      victories: 0
     };
 
     const newInsertInformation = await usersCollection.insertOne(newUser);

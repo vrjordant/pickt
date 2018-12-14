@@ -56,7 +56,8 @@ router.get("/", async (req, res) => {
 			vote_local: user.vote_local,
 			vote_state: user.vote_state,
 			vote_regional: user.vote_regional,
-			vote_national: user.vote_national
+			vote_national: user.vote_national,
+			victories: user.victories
 		}
 		res.render("profile", data);
 	} else {
