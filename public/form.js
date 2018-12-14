@@ -66,23 +66,41 @@
         const region = document.getElementById("region");
         const state = document.getElementById("state");
         const local = document.getElementById("local");
-  
+        
         region.addEventListener("change", function() {
-            console.log(region.value);
+            while (state.firstChild) {
+                state.removeChild(state.firstChild);
+            }
+            let current_region = region.value;
+            let region_to_state_array = regions[current_region];
+            for (let i = 0; i < region_to_state_array.length; i++) {
+                let option = document.createElement("option");
+                option.innerHTML = region_to_state_array[i];
+                option.value = region_to_state_array[i];
+                state.append(option);
+            }
+            let current_state = state.value;
+            let state_to_local_array = counties[current_state];
+            for (let i = 0; i < state_to_local_array.length; i++) {
+                let option = document.createElement("option");
+                option.innerHTML = state_to_local_array[i];
+                option.value = state_to_local_array[i];
+                local.append(option);
+            }
         });
-
-          // Values come from inputs as strings, no matter what :(
-        //   var li = document.createElement("li");
-        //   li.innerHTML = test_txt;
-
-        //   if (is_palindrome) {
-        //     li.className = "is-palindrome";
-        //   }
-        //   else {
-        //     li.className = "not-palindrome"
-        //   }
-        //   attempts.append(li);
-  
+        state.addEventListener("change", function() {
+            while (local.firstChild) {
+                local.removeChild(local.firstChild);
+            }
+            let current_state = state.value;
+            let state_to_local_array = counties[current_state];
+            for (let i = 0; i < state_to_local_array.length; i++) {
+                let option = document.createElement("option");
+                option.innerHTML = state_to_local_array[i];
+                option.value = state_to_local_array[i];
+                local.append(option);
+            }
+        });
     } 
   })();
   
