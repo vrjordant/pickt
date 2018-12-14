@@ -7,6 +7,7 @@ const saltRounds = 10;
 const users = data.users;
 const gallery = data.gallery;
 const local = data.local;
+const moveUp = require("../tasks/moveup");
 
 function base64_encode(file) {
   // read binary data
@@ -17,6 +18,12 @@ function base64_encode(file) {
 
 const main = async () => {
   const db = await dbConnection();
+  // db.local.drop();
+  // db.regional.drop();
+  // db.state.drop();
+  // db.users.drop();
+  // db.gallery.drop();
+
   let un1 = "chillip";
   let un2 = "polandgod";
   let un3 = "vrjordant";
@@ -59,9 +66,10 @@ const main = async () => {
 
   base64 = base64_encode("./uploads/5.jpg");
   pic = await gallery.addPost(base64, '12-09-2018 03:08:03',sean._id);
-  await local.addLocalPost(pic._id, sean._id);
 
-  console.log("Done seeding database");
+  await local.addLocalPost(pic._id, sean._id);
+  await moveUp.moveAllUp();
+
   await db.serverConfig.close();
 
   // await local.addLocalPost("dogs", "de638062-aa85-4a56-b41f-3ef23e19a9de", "fc314b22-9144-4359-9e78-a2d97108f72b")

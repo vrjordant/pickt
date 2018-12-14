@@ -83,12 +83,13 @@ const exportedMethods = {
       }
       for (let i = 0; i < allStateWinners.length; i++) {
         for (let j = 0; j < allStateWinners[i].length; j++) {
-          let statePost = await this.getLocalById(allStateWinners[i][j]);
-          await regionFunctions.addStatePost(statePost.topic,statePost._id,statePost.creator._id);
+          let statePost = await this.getStateById(allStateWinners[i][j]);
+          await regionFunctions.addRegionalPost(statePost.topic,statePost._id,statePost.creator._id);
         }
       }
     }
-    await mongoCollections.state.deleteMany();
+    const stateCollection = await state();
+    await stateCollection.deleteMany({});
   }
 
 };

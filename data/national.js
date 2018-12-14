@@ -36,11 +36,10 @@ const exportedMethods = {
         _id : userThatPosted._id
     },
     votes : 0,
-    topic : topic,
-    location : userThatPosted.profile.national,
+    topic : topic
     };
 
-    const newInsertInformation = await natoinalCollection.insertOne(newNationalPost);
+    const newInsertInformation = await nationalCollection.insertOne(newNationalPost);
     const newId = newInsertInformation.insertedId;
     return await this.getNationalById(newId);
   },
@@ -63,15 +62,16 @@ const exportedMethods = {
     for(let x = 0; x < nationalPosts.length; x++){
       let currPostVotes = nationalPosts[x].votes;
       if(currPostVotes > max){
-        max = currPostVote;
+        max = currPostVotes;
         winnerPostsArray = [];
-        winnerPostsArray.push(nationalPosts[i]._id);
+        winnerPostsArray.push(nationalPosts[x]._id);
       }
       if(currPostVotes = max){
-        winnerPostsArray.push(nationalPosts[i]._id);
+        winnerPostsArray.push(nationalPosts[x]._id);
       }
     }
-    await mongoCollections.national.deleteMany();
+    const nationalCollection = await national();
+    await nationalCollection.deleteMany({});
     return winnerPostsArray;
   }
 

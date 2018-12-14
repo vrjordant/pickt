@@ -12,7 +12,8 @@ module.exports = {
     await local.moveUp();
     await state.moveUp();
     await regional.moveUp();
-    await national.selectWinner();
+    winners = await national.selectWinner();
+    console.log(winners);
     await db.serverConfig.close();
   }
 }
