@@ -33,11 +33,11 @@
 	<div class="col">
 	<form id="sign_up_form" method="post" action="/signup">
 		<label for="username">Username: </label>
-		<input type="text" name="username" id="username">
+		<input type="text" name="username" id="signUpUsername">
 		<br>
 
 		<label for="password">Password: </label>
-		<input type="password" name="password" id="password">
+		<input type="password" name="password" id="signUpPassword">
 		<br>
 
 		<label for="re_password">Retype Password: </label>
@@ -48,9 +48,27 @@
 		<input type="text" name="name" id="name">
 		<br>
 
+		<label for="region">Region: </label>
+		<br>
+		<select name = "region" id = "region">
+			<option value = "Northeast"> Northeast </option>
+			<option value = "Southeast"> Southeast </option>
+			<option value = "Southwest"> Southwest </option>
+			<option value = "Midwest"> Midwest </option>
+			<option value = "West"> West </option>
+		</select>
+		<br>
+
+		<label for="state">State: </label>
+		<br>
+		<select name = "state" id = "state">
+			<option value = "New Jersey"> New Jersey </option>
+			<option value = "Washington"> Washington </option>
+		</select>
+		<br>
+
 		<label for="local">Local: </label>
 		<br>
-		{{!-- <input type="local" name="local" id="local"> --}}
 		<select name = "local" id = "local">
 			<option value = "Atlantic County"> Atlantic County </option>
 			<option value = "Bergen County"> Bergen County </option>
@@ -76,32 +94,10 @@
 		</select>
 		<br>
 
-		{{!-- <label for="state">State: </label>
-		<input type="state" name="state" id="state"> --}}
-		<label for="state">State: </label>
-		<br>
-		<select name = "state" id = "state">
-			<option value = "New Jersey"> New Jersey </option>
-			<option value = "Washington"> Washington </option>
-		</select>
-		<br>
-
-		{{!-- <label for="region">Region: </label>
-		<input type="region" name="region" id="region"> --}}
-		<label for="region">Region: </label>
-		<br>
-		<select name = "region" id = "region">
-			<option value = "Northeast"> Northeast </option>
-			<option value = "Southeast"> Southeast </option>
-			<option value = "Southwest"> Southwest </option>
-			<option value = "Midwest"> Midwest </option>
-			<option value = "West"> West </option>
-		</select>
-		<br>
-
 		<button type="submit">Sign Up</button>
 	</form>
 
 	</div>
 	</div>
 </div>
+<script src="public/form.js"></script>
