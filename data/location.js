@@ -26,6 +26,11 @@ const states = [
     "Wisconsin"
 ];
 const counties ={
+    'Alaska':[],
+    'Arizona':[],
+    'Florida':[],
+    'Georgia':[],
+    'Michigan':[],
     'New Jersey': [ "Atlantic County",
                     "Bergen County",
                     "Burlington County",
@@ -47,11 +52,13 @@ const counties ={
                     "Sussex County",
                     "Union County",
                     "Warren County"],
+    'Texas':[],
     "Washington": [ "Adams County",
                     "Asotin County",
                     "Garfield County",
                     "King County",
-                    "Walla Walla County"]
+                    "Walla Walla County"],
+    'Wisconsin':[]
     };
 
 module.exports = {
