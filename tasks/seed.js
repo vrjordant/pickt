@@ -66,12 +66,9 @@ const main = async () => {
 
   base64 = base64_encode("./uploads/5.jpg");
   pic = await gallery.addPost(base64, '12-09-2018 03:08:03',sean._id);
-<<<<<<< HEAD
-  await local.addLocalPost("Dogs", pic._id, sean._id);
-  await moveUp.moveAllUp();
-=======
+
   await local.addLocalPost(pic._id, sean._id);
->>>>>>> 7e348535e9c0b25ad1e8052412b627a5c025b496
+  await moveUp.moveAllUp();
 
   await db.serverConfig.close();
 

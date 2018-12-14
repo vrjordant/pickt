@@ -9,7 +9,7 @@
 	<h6>PIKT</h6>
 	<p>You are logged in as {{username}}</p>
 	<p>{{location}}</p>
-	<form id = "formID" action="/feed/" enctype = "multipart/form-data" method="POST">
+	<form id = "formID" action="/feed/" hidden = {{bool}} enctype = "multipart/form-data" method="POST">
 		<label>{{formLabel}} </label>
 		<input id = "picture" type="file" name="pic" accept="image/*">
   		<input type="submit">
