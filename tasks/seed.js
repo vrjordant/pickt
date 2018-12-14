@@ -43,23 +43,23 @@ const main = async () => {
   
   let base64 = base64_encode('./uploads/1.jpg');
   let pic = await gallery.addPost(base64, '12-14-2018 09:09:09',phil._id);
-  await local.addLocalPost("Dogs", pic._id, phil._id);
+  await local.addLocalPost(pic._id, phil._id);
 
   base64 = base64_encode("./uploads/2.jpg");
   pic = await gallery.addPost(base64, '12-12-2018 10:10:10',david._id);
-  await local.addLocalPost("Dogs", pic._id, david._id);
+  await local.addLocalPost(pic._id, david._id);
 
   base64 = base64_encode("./uploads/3.jpg");
   pic = await gallery.addPost(base64, '12-08-2018 11:12:08',jordan._id);
-  await local.addLocalPost("Dogs", pic._id, jordan._id);
+  await local.addLocalPost(pic._id, jordan._id);
 
   base64 = base64_encode("./uploads/4.jpg");
   pic = await gallery.addPost(base64, '12-18-2018 08:10:00',gabby._id);
-  await local.addLocalPost("Dogs", pic._id, gabby._id);
+  await local.addLocalPost(pic._id, gabby._id);
 
   base64 = base64_encode("./uploads/5.jpg");
   pic = await gallery.addPost(base64, '12-09-2018 03:08:03',sean._id);
-  await local.addLocalPost("Dogs", pic._id, sean._id);
+  await local.addLocalPost(pic._id, sean._id);
 
   console.log("Done seeding database");
   await db.serverConfig.close();

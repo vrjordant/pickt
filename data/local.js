@@ -6,7 +6,15 @@ const locationData = require("./location");
 const stateFunctions = require("./state");
 const uuid = require("node-uuid");
 
+let topic = "Dogs";
+
 const exportedMethods = {
+  async setTopic(top) {
+    topic = top;
+  },
+  async getTopic() {
+    return topic;
+  },
   async getPostsByLocation(location){
     const localCollection = await local();
     var posts = await localCollection.find({location: location}).toArray();
@@ -20,7 +28,7 @@ const exportedMethods = {
     if (!localPost) throw "Post not found";
     return localPost;
   },
-  async addLocalPost( topic, pid, userId) {
+  async addLocalPost(pid, userId) {
       //Create ID?
     if (typeof topic !== "string") throw "No topic provided";
     if (typeof pid !== "string") throw "No pid provided";

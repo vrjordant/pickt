@@ -13,7 +13,6 @@ const fs = require("fs");
 const date = require('date-and-time');
 
 router.get("/local", async (req, res) => {
-	let topic = "Dogs";
 	const sid = req.cookies.AuthCookie;
 	let user = null;
 	try {
@@ -37,7 +36,7 @@ router.get("/local", async (req, res) => {
             title: "FEED",
 			location: "local: " + user.profile.local,
 			username: user.profile.username,
-            formLabel: `Upload a Picture to submit! Topic: ${topic}`,
+            formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: local_post
         }
         
@@ -52,7 +51,6 @@ router.get("/local", async (req, res) => {
 });
 
 router.get("/state", async (req, res) => {
-	let topic = "Dogs";
 	const sid = req.cookies.AuthCookie;
 	let user = null;
 	try {
@@ -75,7 +73,7 @@ router.get("/state", async (req, res) => {
 		let data = {
             title: "FEED",
             location: "state: " + user.profile.state,
-            formLabel: `Upload a Picture to submit! Topic: ${topic}`,
+            formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: state_post
         }
         
@@ -90,7 +88,6 @@ router.get("/state", async (req, res) => {
 });
 
 router.get("/regional", async (req, res) => {
-	let topic = "Dogs";
 	const sid = req.cookies.AuthCookie;
 	let user = null;
 	try {
@@ -113,7 +110,7 @@ router.get("/regional", async (req, res) => {
 		let data = {
             title: "FEED",
             location: "Region: " + user.profile.regional,
-            formLabel: `Upload a Picture to submit! Topic: ${topic}`,
+            formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: regional_post
         }
         
@@ -128,7 +125,6 @@ router.get("/regional", async (req, res) => {
 });
 
 router.get("/national", async (req, res) => {
-	let topic = "Dogs";
 	const sid = req.cookies.AuthCookie;
 	let user = null;
 	try {
@@ -148,7 +144,7 @@ router.get("/national", async (req, res) => {
 		let data = {
             title: "FEED",
             location: "National: United States",
-            formLabel: `Upload a Picture to submit! Topic: ${topic}`,
+            formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: national_post
         }
         
@@ -178,7 +174,7 @@ router.post("/", upload.single('pic'), async (req, res) => {
             const sid = req.cookies.AuthCookie;
             let user = await users.getUserBySession(sid);
             let pic = await gallery.addPost(base64, date.format(now, 'YYYY/MM/DD HH:mm:ss'),user._id);
-            await local.addLocalPost("dogs", pic._id, user._id)
+            await local.addLocalPost(pic._id, user._id)
 
             res.redirect(303,"/feed/local");
             fs.unlink(req.file.path, (err) => {
