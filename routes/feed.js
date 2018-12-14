@@ -25,23 +25,38 @@ router.get("/local", async (req, res) => {
 	if (auth == true) {
         
         let user = await users.getUserBySession(sid);
-        
+        votesRemaining = user.vote_local;
         let localPosts = await local.getPostsByLocation(user.profile.local)
         let local_post = []
         for (let i = 0; i < localPosts.length; i++){
             let post = await gallery.getPostById(localPosts[i]._id);
             local_post.push(post)
         }
-		let data = {
-            title: "FEED",
-			location: "local: " + user.profile.local,
-			username: user.profile.username,
-			visible: true,
-            formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
-            posts: local_post
-        }
-        
-		res.render("feed", data);
+
+        if (votesRemaining > 0) { 
+			let data = {
+		        title: "FEED",
+				location: "local: " + user.profile.local,
+				username: user.profile.username,
+				visible: true,
+		        formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
+		        posts: local_post
+		    }
+		    
+			res.render("feed", data);
+		} else { // no votes left
+			let data = {
+		        title: "FEED",
+				location: "local: " + user.profile.local,
+				username: user.profile.username,
+				visible: true,
+		        formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
+		        posts: local_post,
+		        disabled: true
+		    }
+		    
+			res.render("feed", data);
+		}
 	} else {
 		let data = {
 			title: "Error 403",
@@ -197,10 +212,37 @@ router.post("/", upload.single('pic'), async (req, res) => {
 });
 
 router.post("/upvote", async (req, res) => {
+	// get user vote count
 	const sid = req.cookies.AuthCookie;
-	let upvoteresult = await gallery.upvotePost(req.body.picID, sid, "local");
-	//console.log(upvoteresult);
-	res.sendStatus(204);
+	let user = await users.getUserBySession(sid);
+	votesRemaining = user.vote_local;
+	if (votesRemaining > 1) { 
+		const sid = req.cookies.AuthCookie;
+		let upvoteresult = await gallery.upvotePost(req.body.picID, sid, "local");
+		//console.log(upvoteresult);
+		res.sendStatus(204);
+	}
+	else { //disable voting after vote goes through
+		if (votesRemaining == 1) {
+			let upvoteresult = await gallery.upvotePost(req.body.picID, sid, "local");
+		}
+		let localPosts = await local.getPostsByLocation(user.profile.local)
+        let local_post = []
+        for (let i = 0; i < localPosts.length; i++){
+            let post = await gallery.getPostById(localPosts[i]._id);
+            local_post.push(post)
+        }
+		let data = {
+            title: "FEED",
+			location: "local: " + user.profile.local,
+			username: user.profile.username,
+			visible: true,
+            formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
+            posts: local_post,
+            disabled: true
+        }
+		res.render("feed", data);
+	}
 });
 
 module.exports = router;
