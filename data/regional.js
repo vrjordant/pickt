@@ -40,7 +40,7 @@ const exportedMethods = {
     },
     votes : 0,
     topic : topic,
-    location : userThatPosted.profile.regional
+    location : userThatPosted.profile.region
     };
 
     const newInsertInformation = await regionalCollection.insertOne(newRegional);
@@ -69,7 +69,7 @@ const exportedMethods = {
         let eachRegionWinners = [];
         let max = -1;
         for(let j = 0; j < regionalPosts.length; j++){
-          let currentPost = regionalPosts[j].votes;
+          let currentVote = regionalPosts[j].votes;
           if (currentVote > max) {
               max = currentVote;
               eachRegionWinners = [];
@@ -88,14 +88,8 @@ const exportedMethods = {
         await nationalFunctions.addNationalPost(regionPost.topic, regionPost._id, regionPost.creator._id );
       }
     }
-  //     for (let i = 0; i < allCountyWinners.length; i++) {
-  //       for (let j = 0; j < allCountyWinners[i].length; j++) {
-  //         let localPost = await this.getLocalById(allCountyWinners[i][j]);
-  //         await stateFunctions.addStatePost(localPost.topic,localPost._id,localPost.creator._id);
-  //       }
-  //     }
-  //   }
-    await mongoCollections.regional.deleteMany();
+    const regionalCollection = await regional();
+    await regionalCollection.deleteMany({});
 
   }
 };

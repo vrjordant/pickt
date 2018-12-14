@@ -63,6 +63,7 @@ const exportedMethods = {
     let countiesObject = locationData.getCounties();
     for (let i = 0; i < stateArray.length; i++) {
       let countiesArray = countiesObject[stateArray[i]];
+      // console.log(countiesArray);
       let allCountyWinners = [];
       // going through each county in a given state
       for (let j = 0; j < countiesArray.length; j++) {
@@ -90,7 +91,8 @@ const exportedMethods = {
         }
       }
     }
-    await mongoCollections.local.deleteMany();
+    const localCollection = await local();
+    await localCollection.deleteMany({});
   }
 
 };
