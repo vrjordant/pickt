@@ -6,8 +6,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 router.post("/", async (req, res) => {
-	const un = req.body.signUpUsername;
-    const pw = req.body.signUpPassword;
+	const un = req.body.username;
+    const pw = req.body.password;
     const pw2 = req.body.re_password;
     const name = req.body.name;
     const local = req.body.local;
