@@ -52,7 +52,11 @@ router.get("/", async (req, res) => {
 			totalNationalVotes,
 			totalVotesEver,
 			cloutLevel,
-			cloutSymbol
+			cloutSymbol,
+			vote_local: user.vote_local,
+			vote_state: user.vote_state,
+			vote_regional: user.vote_regional,
+			vote_national: user.vote_national
 		}
 		res.render("profile", data);
 	} else {
