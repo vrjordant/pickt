@@ -1,10 +1,10 @@
-const regions = [
-    "Northeast",
-    "Southeast",
-    "Midwest",
-    "Southwest",
-    "West"
-]
+const regions = {
+    "Northeast":[],
+    "Southeast":[],
+    "Midwest":[],
+    "Southwest":[],
+    "West":[]
+}
 const states = [
     "New Jersey",
     "Washington"
