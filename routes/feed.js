@@ -138,8 +138,8 @@ router.get("/national", async (req, res) => {
 	}
 	
 	(user == null ? auth=false : auth=true)
-	if (auth == true) {                
-        let nationalPosts = await national.getAllPosts()
+	if (auth == true) {                 
+        let nationalPosts = await national.getAllNationalPosts()
         let national_post = []
         for (let i = 0; i < nationalPosts.length; i++){
             let post = await gallery.getPostById(nationalPosts[i]._id);
