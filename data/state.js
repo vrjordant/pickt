@@ -58,28 +58,35 @@ const exportedMethods = {
     return updatedVotes;
   },
   async moveUp() {
+    let regionList = locationData.getRegionList();
     let regionsObject = locationData.getRegions();
-    let northEast = regionsObject.Northeast;
-    let midWest = regionsObject.Midwest;
-    let southEast= regionsObject.Southeast;
-    let southWest= regionsObject.Southwest;
-    for (let i = 0; i < northEast.length; i++) {
-      let current_state = northEast[i];
-      let statePosts = await this.getPostsByLocation(current_state);
-      let max = -1;
-      let eachStateWinners = [];
-      for (let j = 0; j < statePosts.length; j++) {
-        let current_vote = statePosts[j].votes;
-        if (current_vote > max) {
-          max = current_vote;
-          eachStateWinners = [];
-          eachStateWinners.push(statePosts[j]._id);
+    for (let i = 0; i < regionList.length; i++) {
+      let state_list = regionsObject[regionList[i]];
+      let allStateWinners = [];
+      for (let j = 0; j < state_list.length; j++) {
+        let current_state = state_list[j];
+        let statePosts = await this.getPostsByLocation(current_state);
+        let max = -1;
+        let eachStateWinners = [];
+        for (let k = 0; k < statePosts.length; k++) {
+          let current_vote = statePosts[k].votes;
+          if (current_vote > max) {
+            max = current_vote;
+            eachStateWinners = [];
+            eachStateWinners.push(statePosts[k]._id);
+          }
+          else if (current_vote == max) {
+            eachStateWinners.push(statePosts[k]._id);
+          }
         }
-        else if (current_vote == max) {
-          eachStateWinners.push(statePosts[j]._id);
+        allStateWinners.push(eachStateWinners);
+      }
+      for (let i = 0; i < allStateWinners.length; i++) {
+        for (let j = 0; j < allStateWinners[i].length; j++) {
+          let statePost = await this.getLocalById(allStateWinners[i][j]);
+          await regionFunctions.addStatePost(statePost.topic,statePost._id,statePost.creator._id);
         }
       }
-      
     }
   }
 
