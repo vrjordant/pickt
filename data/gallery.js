@@ -54,32 +54,41 @@ const exportedMethods = {
     }
   },
 
-  async upvotePost(id,area) {
+  async upvotePost(pid, sid, area) {
     if (!area) throw "No area provided!";
 
     let updatedPostData = {};
-    let post = await this.getPostById(id);
+    let updatedUserData = {};
+
+    let post = await this.getPostById(pid);
+    let user = await users.getUserBySession(sid);
+
+    console.log(user);
 
     if (area == "local") {
       updatedPostData.vote_local = post.vote_local+1;
-      console.log("upvotePost on local");
+      updatedUserData.vote_local = user.vote_local - 1;
     }
     else if (area == "state") {
       updatedPostData.vote_state = post.vote_state+1;
+      updatedUserData.vote_state = user.vote_state - 1;
     }
     else if (area == "regional") {
       updatedPostData.vote_regional = post.vote_regional+1;
+      UpdatedUserData.vote_regional = user.vote_regional - 1;
     }
     else if (area == "national") {
       updatedPostData.vote_national = post.vote_national+1;
+      UpdatedUserData.vote_national = user.vote_national - 1;
     }
     else {
       throw "Valid area not provided to upvotePost()";
     }
     const postCollection = await gallery();
-    await postCollection.updateOne( {_id: id}, {$set: updatedPostData});
+    await postCollection.updateOne( {_id: pid}, {$set: updatedPostData});
+    await users.updateUser(user._id, updatedUserData);
 
-    return await this.getPostById(id);
+    return await this.getPostById(pid);
   }
 };
 

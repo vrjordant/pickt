@@ -200,8 +200,8 @@ router.post("/", upload.single('pic'), async (req, res) => {
 });
 
 router.post("/upvote", async (req, res) => {
-	console.log(req.body.picID);
-	let upvoteresult = await gallery.upvotePost(req.body.picID, "local");
+	const sid = req.cookies.AuthCookie;
+	let upvoteresult = await gallery.upvotePost(req.body.picID, sid, "local");
 	//console.log(upvoteresult);
 	res.sendStatus(204);
 });

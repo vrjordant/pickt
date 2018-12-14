@@ -71,7 +71,6 @@ let exportedMethods = {
   },
   async getUserBySession(sid) {
     const userCollection = await users();
-    const jordan = await this.getUserByUn("vrjordant");
     const user = await userCollection.findOne({sessionIds: { $all: [sid]}});
 
     if (!user) throw "User not found";
@@ -80,7 +79,7 @@ let exportedMethods = {
   // David's methods
   async getAllUsers() {
     return users().then(userCollection => {
-      return await userCollection.find({}).toArray();
+      return userCollection.find({}).toArray();
     });
   },
   // This is a fun new syntax that was brought forth in ES6, where we can define
@@ -161,13 +160,29 @@ let exportedMethods = {
       updatedUserData.sessionIds = updatedUser.sessionIds;
     }
 
+    if (updatedUser.vote_local != null) {
+      updatedUserData.vote_local = updatedUser.vote_local;
+    }
+
+    if (updatedUser.vote_state != null) {
+      updatedUserData.vote_state = updatedUser.vote_state;
+    }
+
+    if (updatedUser.vote_regional != null) {
+      updatedUserData.vote_regional = updatedUser.vote_regional;
+    }
+
+    if (updatedUser.vote_national != null) {
+      updatedUserData.vote_national = updatedUser.vote_national;
+    }
+
     let updateCommand = {
       $set: updatedUserData
     };
     const query = {
       _id: id
     };
-    await userCollection.updateOne(query, updateCommand);
+    await userCollection.updateOne(query, updateCommand, {strict: false});
 
     return await this.getUserById(id);
   }
