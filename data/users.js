@@ -80,7 +80,7 @@ let exportedMethods = {
   // David's methods
   async getAllUsers() {
     return users().then(userCollection => {
-      return await userCollection.find({}).toArray();
+      return userCollection.find({}).toArray();
     });
   },
   // This is a fun new syntax that was brought forth in ES6, where we can define
