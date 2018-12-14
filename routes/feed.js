@@ -118,7 +118,7 @@ router.get("/regional", async (req, res) => {
 
         let user = await users.getUserBySession(sid);
         
-        let regionalPosts = await regional.getPostsByLocation(user.profile.regional)
+        let regionalPosts = await regional.getPostsByLocation(user.profile.region)
         let regional_post = []
         for (let i = 0; i < regionalPosts.length; i++){
             let post = await gallery.getPostById(regionalPosts[i]._id);
