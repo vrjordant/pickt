@@ -1,13 +1,24 @@
 const regions = {
-    "Northeast":[],
-    "Southeast":[],
-    "Midwest":[],
-    "Southwest":[],
-    "West":[]
+    "Northeast":["New Jersey"],
+    "Southeast":["Florida", 
+                 "Georgia"],
+    "Midwest":["Michigan",
+               "Wisconsin"],
+    "Southwest":["Arizona",
+                 "Texas"],
+    "West":["Washington",
+            "Alaska"]
 }
 const states = [
+    "Alaska",
+    "Arizona",
+    "Florida",
+    "Georgia",
+    "Michigan",
     "New Jersey",
-    "Washington"
+    "Texas",
+    "Washington",
+    "Wisconsin"
 ];
 const counties ={
     'New Jersey': [ "Atlantic County",

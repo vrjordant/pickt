@@ -58,9 +58,27 @@ const exportedMethods = {
     return updatedVotes;
   },
   async moveUp() {
-    let regionsArray = locationData.getRegions();
-    let stateArray = locationData.getStates();
-    for (let i = 0; i < regionsArray.length; i++) {
+    let regionsObject = locationData.getRegions();
+    let northEast = regionsObject.Northeast;
+    let midWest = regionsObject.Midwest;
+    let southEast= regionsObject.Southeast;
+    let southWest= regionsObject.Southwest;
+    for (let i = 0; i < northEast.length; i++) {
+      let current_state = northEast[i];
+      let statePosts = await this.getPostsByLocation(current_state);
+      let max = -1;
+      let eachStateWinners = [];
+      for (let j = 0; j < statePosts.length; j++) {
+        let current_vote = statePosts[j].votes;
+        if (current_vote > max) {
+          max = current_vote;
+          eachStateWinners = [];
+          eachStateWinners.push(statePosts[j]._id);
+        }
+        else if (current_vote == max) {
+          eachStateWinners.push(statePosts[j]._id);
+        }
+      }
       
     }
   }
