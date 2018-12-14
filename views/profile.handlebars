@@ -8,11 +8,23 @@
 		<li>State: {{profile.state}}</li>
 		<li>Region: {{profile.region}}</li>
 	</ul>
+	<h2>Clout level: {{cloutLevel}}</h2>
+	<ul>
+		<li>Total local votes: {{totalLocalVotes}}</li>
+		<li>Total state votes: {{totalStateVotes}}</li>
+		<li>Total regional votes: {{totalRegionalVotes}}</li>
+		<li>Total national votes: {{totalNationalVotes}}</li>
+		<li>Total votes for all time: {{totalVotesEver}}</li>
+	</ul>
 	<h2>Posts</h2>
 	<ul>
 		{{#each uploads}}
 			<article class = "post">
 				<img src="data:image/png;base64, {{data}}" alt="Picc" />
+				<p>Local votes: {{vote_local}}</p>
+				<p>State votes: {{vote_state}}</p>
+				<p>Regional votes: {{vote_regional}}</p>
+				<p>National votes: {{vote_national}}</p>
 			</article>
 		{{/each}}
 	</ul>
