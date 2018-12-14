@@ -6,6 +6,8 @@ const feedRoute = require("./feed");
 const winnerRoute = require("./winner");
 const votingRoute = require("./voting");
 const signupRoute = require("./signup");
+const adminRoute = require("./admin");
+
 
 
 function constructorMethod(app) {
@@ -17,6 +19,7 @@ function constructorMethod(app) {
 	app.use("/profile", profileRoute);
 	app.use("/logout", logoutRoute);
 	app.use("/signup", signupRoute);
+	app.use("/admin", adminRoute);
 
 	app.use("*", (req, res) => {
     	res.redirect("/");
