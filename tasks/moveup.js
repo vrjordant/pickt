@@ -8,9 +8,9 @@ const national = data.national;
 module.exports = {
   moveAllUp: async function moveAllUp() {
     winners = await national.selectWinner();
-    await local.moveUp();
-    await state.moveUp();
     await regional.moveUp();
+    await state.moveUp();
+    await local.moveUp();
     console.log(winners);
     let allUsers = await users.getAllUsers();
     for (let i = 0; i < allUsers.length;i++) {

@@ -36,7 +36,7 @@ router.get("/local", async (req, res) => {
             title: "FEED",
 			location: "local: " + user.profile.local,
 			username: user.profile.username,
-			bool: false,
+			visible: true,
             formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: local_post
         }
@@ -75,7 +75,6 @@ router.get("/state", async (req, res) => {
             title: "FEED",
 			location: "State: " + user.profile.state,
 			username: user.profile.username,
-			bool: true,
             formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: state_post
         }
@@ -113,7 +112,6 @@ router.get("/regional", async (req, res) => {
 		let data = {
 			title: "FEED",
 			username: user.profile.username,
-			bool: true,
             location: "Region: " + user.profile.region,
             formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: regional_post
@@ -149,7 +147,6 @@ router.get("/national", async (req, res) => {
 		let data = {
 			title: "FEED",
 			username: user.profile.username,
-			bool: true,
             location: "National: United States",
             formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
             posts: national_post
