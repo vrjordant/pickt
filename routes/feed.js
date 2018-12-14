@@ -179,7 +179,6 @@ router.post("/", upload.single('pic'), async (req, res) => {
             let pic = await gallery.addPost(base64, date.format(now, 'YYYY/MM/DD HH:mm:ss'),user._id);
             await local.addLocalPost("dogs", pic._id, user._id)
 
-
             res.redirect(303,"/feed/local");
             fs.unlink(req.file.path, (err) => {
                 if (err) throw err;
