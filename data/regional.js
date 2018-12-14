@@ -95,6 +95,7 @@ const exportedMethods = {
   //       }
   //     }
   //   }
+    await mongoCollections.regional.deleteMany();
 
   }
 };

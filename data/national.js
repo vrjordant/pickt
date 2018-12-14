@@ -71,6 +71,7 @@ const exportedMethods = {
         winnerPostsArray.push(nationalPosts[i]._id);
       }
     }
+    await mongoCollections.national.deleteMany();
     return winnerPostsArray;
   }
 

@@ -88,6 +88,7 @@ const exportedMethods = {
         }
       }
     }
+    await mongoCollections.state.deleteMany();
   }
 
 };

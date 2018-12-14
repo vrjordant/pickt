@@ -90,6 +90,7 @@ const exportedMethods = {
         }
       }
     }
+    await mongoCollections.local.deleteMany();
   }
 
 };
