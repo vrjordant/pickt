@@ -30,7 +30,7 @@ router.post("/", async (req, res) => {
 			res.redirect("/feed");
 		}
 	} else {
-		res.render("root", {title: "", error: err});
+		res.render("root", {title: "Error", error: err});
 	}
 });
 
