@@ -37,8 +37,9 @@ const main = async () => {
   const jordan = await users.addUser(un3, name3, hash, "Union County", "New Jersey", "Northeast");
   const gabby = await users.addUser(un4, name4, hash, "Adams County", "Washington", "West");
   const sean = await users.addUser(un5, name5, hash, "Union County", "New Jersey", "Northeast");
-
-  const admin = await users.addUser("admin", "admin", '1', "admin", "admin", "admin");
+  
+  hash = await bcrypt.hash('1', saltRounds);
+  const admin = await users.addUser("admin", "admin",hash , "admin", "admin", "admin");
   
   let base64 = base64_encode('./uploads/1.jpg');
   let pic = await gallery.addPost(base64, '12-14-2018 09:09:09',phil._id);

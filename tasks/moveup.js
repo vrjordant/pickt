@@ -6,13 +6,13 @@ const state = data.state;
 const regional = data.regional;
 const national = data.national;
 
-const main = async () => {
-  const db = await dbConnection();
-  await local.moveUp();
-  await state.moveUp();
-  await regional.moveUp();
-  await national.selectWinner();
-  await db.serverConfig.close();
-};
-
-main().catch(console.log);
+module.exports = {
+  moveAllUp: async function moveAllUp() {
+    const db = await dbConnection();
+    await local.moveUp();
+    await state.moveUp();
+    await regional.moveUp();
+    await national.selectWinner();
+    await db.serverConfig.close();
+  }
+}
