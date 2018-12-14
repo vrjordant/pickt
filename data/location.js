@@ -1,3 +1,8 @@
+const regionList = ["Northeast",
+                    "Southeast",
+                    "Southwest",
+                    "Midwest",
+                    "West"];
 const regions = {
     "Northeast":["New Jersey"],
     "Southeast":["Florida", 
@@ -8,7 +13,7 @@ const regions = {
                  "Texas"],
     "West":["Washington",
             "Alaska"]
-}
+};
 const states = [
     "Alaska",
     "Arizona",
