@@ -1,4 +1,3 @@
-const dbConnection = require("../config/mongoConnection");
 const data = require("../data/");
 const users = data.users;
 const local = data.local;
@@ -8,7 +7,6 @@ const national = data.national;
 
 module.exports = {
   moveAllUp: async function moveAllUp() {
-    const db = await dbConnection();
     winners = await national.selectWinner();
     await local.moveUp();
     await state.moveUp();
@@ -21,6 +19,5 @@ module.exports = {
       allUsers[i].vote_regional = 5;
       allUsers[i].vote_national = 5;
     }
-    await db.serverConfig.close();
   }
 }

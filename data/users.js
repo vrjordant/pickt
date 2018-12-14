@@ -17,7 +17,6 @@ let exportedMethods = {
   async getUserByUn(un) {
     const userCollection = await users();
     const user = await userCollection.findOne({'profile.username': un});
-
     if (!user) throw "That didn't work/User not found";
     return user;
   },
@@ -80,7 +79,7 @@ let exportedMethods = {
   // David's methods
   async getAllUsers() {
     return users().then(userCollection => {
-      return await userCollection.find({}).toArray();
+      return userCollection.find({}).toArray();
     });
   },
   // This is a fun new syntax that was brought forth in ES6, where we can define
