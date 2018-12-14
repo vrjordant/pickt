@@ -38,7 +38,7 @@ router.get("/local", async (req, res) => {
 			location: "local: " + user.profile.local,
 			username: user.profile.username,
             formLabel: `Upload a Picture to submit! Topic: ${topic}`,
-            posts: local_post
+			posts: local_post
         }
         
 		res.render("feed", data);
@@ -112,7 +112,7 @@ router.get("/regional", async (req, res) => {
         }
 		let data = {
             title: "FEED",
-            location: "Region: " + user.profile.regional,
+            location: "Region: " + user.profile.region,
             formLabel: `Upload a Picture to submit! Topic: ${topic}`,
             posts: regional_post
         }

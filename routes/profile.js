@@ -33,6 +33,14 @@ router.get("/", async (req, res) => {
 
 		// Simple clout calculation
 		let cloutLevel = Math.floor(totalVotesEver/10);
+		let cloutTrophies = ["😬","👶","🔥","😎","💯","🐐","🆑🅾️⛎♈️⁉️"];
+		let cloutSymbol = "";
+		if (cloutLevel >= 6) {
+			cloutSymbol = cloutTrophies[6];
+		}
+		else {
+			cloutSymbol = cloutTrophies[cloutLevel];
+		}
 
 		let data = {
 			title: "Profile",
@@ -43,7 +51,8 @@ router.get("/", async (req, res) => {
 			totalRegionalVotes,
 			totalNationalVotes,
 			totalVotesEver,
-			cloutLevel
+			cloutLevel,
+			cloutSymbol
 		}
 		res.render("profile", data);
 	} else {
