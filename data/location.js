@@ -57,7 +57,7 @@ const counties ={
 module.exports = {
     getRegionList: function getRegionList() {
         return regionList;
-    }
+    },
     getRegions: function getRegions() {
         return regions;
     },
