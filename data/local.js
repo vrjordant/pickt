@@ -9,10 +9,10 @@ const uuid = require("node-uuid");
 let topic = "Dogs";
 
 const exportedMethods = {
-  async setTopic(top) {
+  setTopic(top) {
     topic = top;
   },
-  async getTopic() {
+  getTopic() {
     return topic;
   },
   async getPostsByLocation(location){
