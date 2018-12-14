@@ -1,11 +1,12 @@
 const dbConnection = require("../config/mongoConnection");
 const data = require("../data/");
-
+const fs = require("fs");
 const uuid = require("uuid/v4");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const users = data.users;
 const gallery = data.gallery;
+const local = data.local;
 
 function base64_encode(file) {
   // read binary data
@@ -37,10 +38,30 @@ const main = async () => {
   const gabby = await users.addUser(un4, name4, hash, "Adams County", "Washington", "West");
   const sean = await users.addUser(un5, name5, hash, "Union County", "New Jersey", "Northeast");
 
-  await gallery.addPost
-  // console.log(jordan);
-  console.log("Done seeding database");
+  const admin = await users.addUser("admin", "admin", '1', "admin", "admin", "admin");
+  
+  let base64 = base64_encode('./uploads/1.jpg');
+  let pic = await gallery.addPost(base64, '12-14-2018 09:09:09',phil._id);
+  await local.addLocalPost("Dogs", pic._id, phil._id);
 
+  base64 = base64_encode("./uploads/2.jpg");
+  pic = await gallery.addPost(base64, '12-12-2018 10:10:10',david._id);
+  await local.addLocalPost("Dogs", pic._id, david._id);
+
+  base64 = base64_encode("./uploads/3.jpg");
+  pic = await gallery.addPost(base64, '12-08-2018 11:12:08',jordan._id);
+  await local.addLocalPost("Dogs", pic._id, jordan._id);
+
+  base64 = base64_encode("./uploads/4.jpg");
+  pic = await gallery.addPost(base64, '12-18-2018 08:10:00',gabby._id);
+  await local.addLocalPost("Dogs", pic._id, gabby._id);
+
+  base64 = base64_encode("./uploads/5.jpg");
+  pic = await gallery.addPost(base64, '12-09-2018 03:08:03',sean._id);
+  await local.addLocalPost("Dogs", pic._id, sean._id);
+
+  console.log("Done seeding database");
+  await db.serverConfig.close();
 
   // await local.addLocalPost("dogs", "de638062-aa85-4a56-b41f-3ef23e19a9de", "fc314b22-9144-4359-9e78-a2d97108f72b")
   // // console.log(jordan);
