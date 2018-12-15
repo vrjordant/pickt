@@ -75,7 +75,7 @@ const exportedMethods = {
     }
     else if (area == "region") {
       updatedPostData.vote_regional = post.vote_regional+1;
-      UpdatedUserData.vote_regional = user.vote_regional - 1;
+      updatedUserData.vote_regional = user.vote_regional - 1;
     }
     else if (area == "national") {
       updatedPostData.vote_national = post.vote_national+1;
