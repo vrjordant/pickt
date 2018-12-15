@@ -67,10 +67,6 @@
         const state = document.getElementById("state");
         const local = document.getElementById("local");
 
-        let option = document.createElement("option");
-        option.innerHTML = "Select a region!";
-        region.append(option);
-
         for (let i = 0; i < regionList.length; i++) {
             let option = document.createElement("option");
             option.innerHTML = regionList[i];
@@ -89,6 +85,9 @@
                 option.innerHTML = region_to_state_array[i];
                 option.value = region_to_state_array[i];
                 state.append(option);
+            }
+            while(local.firstChild) {
+                local.removeChild(local.firstChild);
             }
             let current_state = state.value;
             let state_to_local_array = counties[current_state];

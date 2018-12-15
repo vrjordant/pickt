@@ -16,7 +16,10 @@ Welcome! This is a web application that allows users to participate in daily com
  `npm install`
 * Seeding data:
 
- `npm run seed` : this will enter 5 users, and each of them will have uploaded 1 picture each; this will also add **admin** to the database, so this is important if you want to run as **admin**
+ `npm run seed` : 
+ * This will enter 5 users, and each of them will have uploaded 1 picture each
+ * This will also add **admin** to the database, so this is important if you want to run as **admin**
+ * Counties so far are only provided for New Jersey and for Washington
 * Start the server
 
  `npm start` : make sure to click on the link to get to the landing page!

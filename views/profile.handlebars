@@ -25,15 +25,15 @@
 		<li>Votes for national: {{vote_national}}</li>
 	</ul>
 	<h2>Posts</h2>
-	<ul>
+	{{!-- <ul> --}}
 		{{#each uploads}}
-			<article class = "post">
+			<div class = "post">
 				<img src="data:image/png;base64, {{data}}" alt="Picc" />
 				<p>Local votes: {{vote_local}}</p>
 				<p>State votes: {{vote_state}}</p>
 				<p>Regional votes: {{vote_regional}}</p>
 				<p>National votes: {{vote_national}}</p>
-			</article>
+			</div>
 		{{/each}}
-	</ul>
+	{{!-- </ul> --}}
 </div>

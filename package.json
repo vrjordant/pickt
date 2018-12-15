@@ -1,15 +1,14 @@
 {
-  "name": "cs-546-lab-10",
+  "name": "cs-546-final-project",
   "version": "1.0.0",
-  "description": "A simple user login system",
+  "description": "Pickt! Read the README",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "node ./tasks/seed.js",
-    "moveup": "node ./tasks/moveup.js"
+    "seed": "node ./tasks/seed.js"
   },
-  "author": "Gabrielle Padriga 10416101",
+  "author": "Gabrielle Padriga, David Kim, Jordan Tantico, Sean Hill, Philip Cho",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.2",

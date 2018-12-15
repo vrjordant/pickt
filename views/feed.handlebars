@@ -29,7 +29,7 @@
     </div>
 	<div>
 	{{#each posts}}
-		<article class = "post">
+		<div class = "post">
 			<img src="data:image/png;base64, {{data}}" alt="Picc" />
 			<form id = "upvoteID" action="/feed/upvote" method="POST">
 				<input type="hidden" id="picID" name="picID" value="{{_id}}">
@@ -37,7 +37,7 @@
 				<input type="submit" value="Upvote">
 				{{/unless}}
 			</form>
-		</article>
+		</div>
 	{{/each}}
 </div> 
 </section>
