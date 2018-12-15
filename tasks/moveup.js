@@ -13,8 +13,6 @@ module.exports = {
     await local.moveUp();
     console.log(winners);
     let allUsers = await users.getAllUsers();
-    console.log("TESTTTTTTTTTTTTTTTTTTTTT");
-    // console.log(allUsers);
     for (let i = 0; i < allUsers.length;i++) {
       let resetVotesProfile = {
         vote_local : 5,
@@ -22,7 +20,6 @@ module.exports = {
         vote_regional : 5,
         vote_national : 5
       }
- 
       users.updateUser(allUsers[i]._id,resetVotesProfile);
     }
   }
