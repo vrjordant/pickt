@@ -10,7 +10,6 @@ const exportedMethods = {
   async getPostsByLocation(location){
     const stateCollection = await state();
     var posts = await stateCollection.find({location: location}).toArray();
-    console.log(posts[0])
     return posts;
   },
   async getStateById(id) {

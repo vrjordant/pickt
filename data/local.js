@@ -18,7 +18,6 @@ const exportedMethods = {
   async getPostsByLocation(location){
     const localCollection = await local();
     var posts = await localCollection.find({location: location}).toArray();
-    console.log(posts[0])
     return posts;
   },
   async getLocalById(id) {
@@ -71,7 +70,7 @@ const exportedMethods = {
     let countiesObject = locationData.getCounties();
     for (let i = 0; i < stateArray.length; i++) {
       let countiesArray = countiesObject[stateArray[i]];
-      // console.log(countiesArray);
+
       let allCountyWinners = [];
       // going through each county in a given state
       for (let j = 0; j < countiesArray.length; j++) {
