@@ -66,7 +66,18 @@
         const region = document.getElementById("region");
         const state = document.getElementById("state");
         const local = document.getElementById("local");
-        
+
+        let option = document.createElement("option");
+        option.innerHTML = "Select a region!";
+        region.append(option);
+
+        for (let i = 0; i < regionList.length; i++) {
+            let option = document.createElement("option");
+            option.innerHTML = regionList[i];
+            option.value = regionList[i];
+            region.append(option);
+        }
+
         region.addEventListener("change", function() {
             while (state.firstChild) {
                 state.removeChild(state.firstChild);
