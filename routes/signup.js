@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     const state = req.body.state;
     const region = req.body.region;
 
-    var letters = "/^[0-9a-zA-Z]+$/";
+    var letters = /^[0-9a-zA-Z]+$/;
     if( !(un.match(letters) && pw.match(letters) && pw2.match(letters) && name.match(letters))){
         res.render("root", {title: "Pickt", error: "User must only enter alphanumeric characters into the sign up"});  
     }
