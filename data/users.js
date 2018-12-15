@@ -186,6 +186,7 @@ let exportedMethods = {
 
     return await this.getUserById(id);
   }
+
 };
 
 module.exports = exportedMethods;

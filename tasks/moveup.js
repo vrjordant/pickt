@@ -13,11 +13,17 @@ module.exports = {
     await local.moveUp();
     console.log(winners);
     let allUsers = await users.getAllUsers();
+    console.log("TESTTTTTTTTTTTTTTTTTTTTT");
+    // console.log(allUsers);
     for (let i = 0; i < allUsers.length;i++) {
-      allUsers[i].vote_local = 5;
-      allUsers[i].vote_state = 5;
-      allUsers[i].vote_regional = 5;
-      allUsers[i].vote_national = 5;
+      let resetVotesProfile = {
+        vote_local : 5,
+        vote_state : 5,
+        vote_regional : 5,
+        vote_national : 5
+      }
+ 
+      users.updateUser(allUsers[i]._id,resetVotesProfile);
     }
   }
 }
