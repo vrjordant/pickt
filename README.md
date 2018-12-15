@@ -40,3 +40,10 @@ Welcome! This is a web application that allows users to participate in daily com
  * You can only vote in your local area, your state, your region, then your nation
  * The votes get reset after admin calls move-up!
 * Profile contains all the photos you've posted and metrics on the number of votes and victories you have!
+
+## Looking at the Database:
+* `mongo` 
+* `use final-project`
+* `show collections` 
+ * Should see `users`,`gallery`, and `local` if you called the seed task
+ * You'll see the `state`, `regional`, and `national` collections as you call `moveup` in the admin panel

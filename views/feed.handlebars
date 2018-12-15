@@ -31,8 +31,8 @@
 	{{#each posts}}
 		<div class = "post">
 			<img src="data:image/png;base64,{{data}}" alt="Picc" />
-			<form id = "upvoteID" action="/feed/upvote" method="POST">
-				<input type="hidden" id="picID" name="picID" value="{{_id}}">
+			<form action="/feed/upvote" method="POST">
+				<input type="hidden" name="picID" value="{{_id}}">
 				{{#unless ../disabled}}
 				<input type="submit" value="Upvote">
 				{{/unless}}

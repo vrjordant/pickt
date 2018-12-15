@@ -6,7 +6,7 @@ const uuid = require("uuid/v4");
 router.post("/", async (req, res) => {
 	const un = req.body.username;
 	const pw = req.body.password;
-	var letters = /^[0-9a-zA-Z]+$/
+	var letters = /^[0-9a-zA-Z' ']+$/
 
 	let auth = false;
 	let err = "Did not provide a valid username/password.";
