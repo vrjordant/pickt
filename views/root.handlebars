@@ -18,10 +18,10 @@
 	<div class="col">
 	<form id="login-form" method="post" action="/login">
 		<label for="username">Username: </label>
-		<input type="text" name="username" id="username">
+		<input type="text" name="username" id="username" required>
 		<br>
 		<label for="password">Password: </label>
-		<input type="password" name="password" id="password">
+		<input type="password" name="password" id="password" required>
 		<button type="submit">Log in</button>
 	</form>
 	</div>
@@ -33,41 +33,36 @@
 	<div class="col">
 	<form id="sign_up_form" method="post" action="/signup">
 		<label for="username">Username: </label>
-		<input type="text" name="username" id="signUpUsername">
+		<input type="text" name="username" id="signUpUsername" required>
 		<br>
 
 		<label for="password">Password: </label>
-		<input type="password" name="password" id="signUpPassword">
+		<input type="password" name="password" id="signUpPassword" required>
 		<br>
 
 		<label for="re_password">Retype Password: </label>
-		<input type="password" name="re_password" id="re_password">
+		<input type="password" name="re_password" id="re_password" required>
 		<br>
 
 		<label for="name">Enter Your Name: </label>
-		<input type="text" name="name" id="name">
+		<input type="text" name="name" id="name" required>
 		<br>
 
 		<label for="region">Region: </label>
 		<br>
-		<select name = "region" id = "region">
-			{{!-- <option value = "Northeast"> Northeast </option>
-			<option value = "Southeast"> Southeast </option>
-			<option value = "Southwest"> Southwest </option>
-			<option value = "Midwest"> Midwest </option>
-			<option value = "West"> West </option> --}}
+		<select name = "region" id = "region" required>
 		</select>
 		<br>
 
 		<label for="state">State: </label>
 		<br>
-		<select name = "state" id = "state">
+		<select name = "state" id = "state" required>
 		</select>
 		<br>
 
 		<label for="local">Local: </label>
 		<br>
-		<select name = "local" id = "local">
+		<select name = "local" id = "local" required>
 		</select>
 		<br>
 

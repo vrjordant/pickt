@@ -213,32 +213,77 @@ router.post("/", upload.single('pic'), async (req, res) => {
 
 router.post("/upvote", async (req, res) => {
 	// get user vote count
+	let location = "";
+	let pid = req.body.picID;
+	let nationQuestion;
+	let regionQuestion;
+	let stateQuestion;
+	let localQuestion;
+	let votesRemaining;
 	const sid = req.cookies.AuthCookie;
 	let user = await users.getUserBySession(sid);
-	votesRemaining = user.vote_local;
+	try { nationQuestion= await national.getNationalById(pid);
+	} catch (e) {}
+	try { regionQuestion = await regional.getRegionalById(pid);
+	} catch (e) {}
+	try { stateQuestion = await state.getStateById(pid);
+	} catch (e) {}
+	try { localQuestion = await local.getLocalById(pid);
+	} catch (e) {}
+
+	if (nationQuestion) {
+		location = "national";
+		votesRemaining = user.vote_national;
+	}
+	if (regionQuestion) {
+		location = "region";
+		votesRemaining = user.vote_regional;
+	}
+	if (stateQuestion) {
+		location = "state";
+		votesRemaining = user.vote_state;
+	}
+	if (localQuestion) {
+		location = "local";
+		votesRemaining = user.vote_local;
+	}
+	
 	if (votesRemaining > 1) { 
 		const sid = req.cookies.AuthCookie;
-		let upvoteresult = await gallery.upvotePost(req.body.picID, sid, "local");
+		let upvoteresult = await gallery.upvotePost(req.body.picID, sid, location);
 		//console.log(upvoteresult);
 		res.sendStatus(204);
 	}
 	else { //disable voting after vote goes through
 		if (votesRemaining == 1) {
-			let upvoteresult = await gallery.upvotePost(req.body.picID, sid, "local");
+			let upvoteresult = await gallery.upvotePost(req.body.picID, sid, location);
 		}
-		let localPosts = await local.getPostsByLocation(user.profile.local)
-        let local_post = []
-        for (let i = 0; i < localPosts.length; i++){
-            let post = await gallery.getPostById(localPosts[i]._id);
-            local_post.push(post)
+		let posts;
+		if (location == "local") {
+			posts = await local.getPostsByLocation(user.profile.local);
+		}
+		if (location == "state") {
+			posts = await state.getPostsByLocation(user.profile.state);
+		}
+		if (location == "region") {
+			posts = await regional.getPostsByLocation(user.profile.region);
+		}
+		if (location == "national") {
+			posts = await national.getAllNationalPosts();
+		}
+		
+        let posts_p = [];
+        for (let i = 0; i < posts.length; i++){
+            let post = await gallery.getPostById(posts[i]._id);
+            posts_p.push(post)
         }
 		let data = {
             title: "FEED",
-			location: "local: " + user.profile.local,
+			location: `${location} ` + user.profile[location],
 			username: user.profile.username,
 			visible: true,
             formLabel: `Upload a Picture to submit! Topic: ${local.getTopic()}`,
-            posts: local_post,
+            posts: posts_p,
             disabled: true
         }
 		res.render("feed", data);
