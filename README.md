@@ -27,6 +27,6 @@ Welcome! This is a web application that allows users to participate in daily com
  * Password: `1`
 
 * Admin Actions:
- * **MoveUp**: All photos that win in their respective locations will move up to the next level (Example: Local -> State, State -> Regional, Regional -> National, then National Winner(s) for the current National pool will be chosen)
- * **Change Topic**: Enter a new topic for the day! This will change the current topic for local so users will have to enter a photo for the new topic.
+ * **MoveUp**: All photos that win in their respective locations will move up to the next level (Example: Local -> State, State -> Regional, Regional -> National, then National Winner(s) for the current National pool will be chosen.) If more than one post has the same number of highest votes, then they will both move up to the next level.
+ * **Change Topic**: Enter a new topic for the day! This will change the current topic for local so users will have to enter a photo for the new topic. Ideally done in conjunction with MoveUp.
 
