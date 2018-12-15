@@ -72,6 +72,21 @@ const exportedMethods = {
         winnerPostsArray.push(nationalPosts[x]._id);
       }
     }
+    for(let x = 0; x < winnerPostsArray.length; x++){
+      let nationalPostId = winnerPostsArray[x];
+      let nationPostWinner = await this.getNationalById(nationalPostId);
+      let userId = nationPostWinner.creator._id;
+      let userProfileThatWon = await users.getUserById(userId);
+      let newWins = userProfileThatWon.victories + 1;
+      let newUserObject = {
+        victories: newWins
+      }
+
+      newUserInfo = await users.updateUser(userId, newUserObject);
+      console.log("test");
+      console.log(newUserInfo);
+    }
+
     const nationalCollection = await national();
     await nationalCollection.deleteMany({});
     return winnerPostsArray;

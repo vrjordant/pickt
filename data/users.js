@@ -23,7 +23,7 @@ let exportedMethods = {
   async checkUserExists(un) {
     const userCollection = await users();
     const user = await userCollection.findOne({'profile.username': un});
-    console.log(user)
+    console.log(user);
     if (!user) return false;
     return true;
   },
@@ -174,6 +174,9 @@ let exportedMethods = {
 
     if (updatedUser.vote_national != null) {
       updatedUserData.vote_national = updatedUser.vote_national;
+    }
+    if(updatedUser.victories){
+      updatedUserData.victories = updatedUser.victories;
     }
 
     let updateCommand = {
