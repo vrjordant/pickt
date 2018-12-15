@@ -27,7 +27,6 @@ const exportedMethods = {
     const nationalCollection = await national();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getPostById(pid);
     const newNationalPost = {
     _id: pid,
     creator : {
@@ -50,10 +49,13 @@ const exportedMethods = {
       throw `Could not delete post with id of ${id}`;
     }
   },
-  async upvotePost(id) {
-    area = "national";
-    const updatedVotes = await gallery.upvotePost(id, area);
-    return updatedVotes;
+  async upvotePostNational(id) {
+    const nationalPost = await this.getNationalById(id);
+      let numOfVotes = nationalPost.votes + 1;
+      const nationalCollection = await national();
+      let newPostObject = {};
+      newPostObject.votes = numOfVotes;
+      await nationalCollection.updateOne({_id : id}, {$set: newPostObject});
   },
   async selectWinner(){
     let nationalPosts = await this.getAllNationalPosts();

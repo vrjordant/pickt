@@ -1,6 +1,10 @@
 const mongoCollections = require("../config/mongoCollections");
 const gallery = mongoCollections.gallery;
 const users = require("./users");
+const local = require("./local");
+const state = require("./state");
+const regional = require("./regional");
+const national = require("./national");
 const uuid = require("node-uuid");
 
 const exportedMethods = {
@@ -68,18 +72,22 @@ const exportedMethods = {
     if (area == "local") {
       updatedPostData.vote_local = post.vote_local+1;
       updatedUserData.vote_local = user.vote_local - 1;
+      local.upvotePostLocal(pid);
     }
     else if (area == "state") {
       updatedPostData.vote_state = post.vote_state+1;
       updatedUserData.vote_state = user.vote_state - 1;
+      state.upvotePostState(pid);
     }
     else if (area == "region") {
       updatedPostData.vote_regional = post.vote_regional+1;
-      UpdatedUserData.vote_regional = user.vote_regional - 1;
+      updatedUserData.vote_regional = user.vote_regional - 1;
+      regional.upvotePostRegional(pid);
     }
     else if (area == "national") {
       updatedPostData.vote_national = post.vote_national+1;
-      UpdatedUserData.vote_national = user.vote_national - 1;
+      updatedUserData.vote_national = user.vote_national - 1;
+      national.upvotePostNational(pid);
     }
     else {
       throw "Valid area not provided to upvotePost()";

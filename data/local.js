@@ -62,8 +62,12 @@ const exportedMethods = {
   },
   async upvotePostLocal(id) {
     area = "local";
-    const updatedVotes = await gallery.upvotePost(id, area);
-    return updatedVotes;
+    const localPost = await this.getLocalById(id);
+      let numOfVotes = localPost.votes + 1;
+      const localCollection = await local();
+      let newLocalPostObject = {};
+      newLocalPostObject.votes = numOfVotes;
+      await localCollection.updateOne({_id : id}, {$set: newLocalPostObject});
   },
   async moveUp() {
     let stateArray = locationData.getStates();

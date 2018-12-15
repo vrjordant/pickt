@@ -30,7 +30,7 @@ const exportedMethods = {
     const regionalCollection = await regional();
 
     const userThatPosted = await users.getUserById(userId);
-    const galleryThatPosted = await gallery.getPostById(pid);
+    
     const newRegional = {
     _id: pid,
     creator : {
@@ -56,8 +56,12 @@ const exportedMethods = {
   },
   async upvotePostRegional(id) {
     area = "regional";
-    const updatedVotes = await gallery.upvotePost(id, area);
-    return updatedVotes;
+    const regionalPost = await this.getRegionalById(id);
+      let numOfVotes = regionalPost.votes + 1;
+      const regionalCollection = await regional();
+      let newPostObject = {};
+      newPostObject.votes = numOfVotes;
+      await regionalCollection.updateOne({_id : id}, {$set: newPostObject});
   },
   async moveUp() {
     let regionArray = locationData.getRegionList();

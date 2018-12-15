@@ -53,8 +53,13 @@ const exportedMethods = {
   },
   async upvotePostState(id) {
     area = "state";
-    const updatedVotes = await gallery.upvotePost(id, area);
-    return updatedVotes;
+    const statePost = await this.getStateById(id);
+      let numOfVotes = statePost.votes + 1;
+      const stateCollection = await state();
+      let newStatePostObject = {};
+      newStatePostObject.votes = numOfVotes;
+      await stateCollection.updateOne({_id : id}, {$set: newStatePostObject});
+
   },
   async moveUp() {
     let regionList = locationData.getRegionList();
